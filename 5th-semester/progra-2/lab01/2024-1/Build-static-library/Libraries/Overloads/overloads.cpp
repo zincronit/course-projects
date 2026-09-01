@@ -90,10 +90,7 @@ void operator <<(std::ofstream& fout, const struct Customer& customer)
     fout << "Books Delivered" << std::endl;
     for (int i = 0; i < customer.book_count; i++)
     {
-        print_text(fout, "order No.", width, false);
-        print_text(fout, "Code", width, false);
-        print_text(fout, "Price", width, false);
-        fout << std::endl;
+        print_header_customer(fout);
         if (customer.requested_books[i].fulfilled)
         {
             fout << std::right << std::setw(width) << customer.requested_books[i].order_number;
@@ -105,8 +102,7 @@ void operator <<(std::ofstream& fout, const struct Customer& customer)
     fout << "Books not Delivered duo to lack of stock" << std::endl;
     for (int i = 0; i < customer.book_count; i++)
     {
-        print_text(fout, "Order No.", width, false);
-        print_text(fout, "Code", width, false);
+        print_header_customer(fout, false);
         if (not customer.requested_books[i].fulfilled)
         {
             fout << std::right << std::setw(width) << customer.requested_books[i].order_number;

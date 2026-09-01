@@ -27,5 +27,6 @@ char* read_string(std::ifstream& fin, char character = ',');
 
 char* allocate_string(const char* text);
 
+void print_header_customer(std::ofstream& fout, bool fulfilled = true);
 
 #endif //BUILD_STATIC_LIBRARY_FUNCTIONS_HPP

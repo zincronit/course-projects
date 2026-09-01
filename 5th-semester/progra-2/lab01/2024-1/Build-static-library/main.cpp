@@ -3,13 +3,13 @@
 //
 
 
-#include <iostream>
-#include <ostream>
+#include "Libraries/Test-overloads/test.hpp"
 
 int main () {
-    for ( int i = 0 ; i != 10; i++ )
-    {
-        std::cout << i << std::endl;
-    }
+    struct Book* books;
+    read_book_file("../Files/Data/books.csv", books);
+
+    struct Customer* customers;
+    read_customer_file("../Files/Data/customers.csv", customers);
     return 0;
 }

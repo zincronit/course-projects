@@ -12,4 +12,6 @@ add_executable(Build_static_library
         Libraries/Utils/Functions.cpp
         Libraries/Structs/Book.hpp
         Libraries/Structs/Customer.hpp
-        Libraries/Structs/RequestedBook.hpp)
+        Libraries/Structs/RequestedBook.hpp
+        Libraries/Test-overloads/test.hpp
+        Libraries/Test-overloads/test.cpp)

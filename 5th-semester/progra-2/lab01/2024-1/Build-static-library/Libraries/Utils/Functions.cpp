@@ -82,4 +82,11 @@ char* allocate_string(const char* text)
     return string;
 }
 
-
+void print_header_customer(std::ofstream& fout ,bool fulfilled)
+{
+    int width = LINE_WIDTH/COLUMNS2;
+    print_text(fout, "order No.", width, false);
+    print_text(fout, "Code", width, false);
+    if (fulfilled) print_text(fout, "Price", width, false);
+    fout << std::endl;
+}
