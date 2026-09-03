@@ -1,0 +1,72 @@
+ID: 101
+   Name: Luna
+   Breed: Negro
+   Color: Labrador
+   Type: CANINO
+ID: 102
+   Name: Michi
+   Breed: Blanco
+   Color: Siames
+   Type: FELINO
+ID: 103
+   Name: Rocky
+   Breed: Marron
+   Color: Bulldog
+   Type: CANINO
+ID: 104
+   Name: Nala
+   Breed: Gris
+   Color: Persa
+   Type: FELINO
+ID: 105
+   Name: Toby
+   Breed: Tricolor
+   Color: Beagle
+   Type: CANINO
+ID: 106
+   Name: Simba
+   Breed: Naranja
+   Color: Comun
+   Type: FELINO
+ID: 107
+   Name: Max
+   Breed: Negro
+   Color: PastorAleman
+   Type: CANINO
+ID: 108
+   Name: Kira
+   Breed: Crema
+   Color: Siames
+   Type: FELINO
+ID: 109
+   Name: Dali
+   Breed: Blanco
+   Color: Americano
+   Type: FELINO
+ID: 110
+   Name: LuisXV
+   Breed: plomo
+   Color: Siberiano
+   Type: FELINO
+ID: 111
+   Name: Terry
+   Breed: Caramelo
+   Color: PastorAleman
+   Type: CANINO
+ID: 112
+   Name: Goku
+   Breed: Marron
+   Color: GoldenRetriever
+   Type: CANINO
+ID: 113
+   Name: Deysi
+   Breed: Blanco
+   Color: Esquimal
+   Type: CANINO
+ID: 114
+   Name: Gigo
+   Breed: Blanco
+   Color: Poodle
+   Type: CANINO
+ID: 0
+   Name: 

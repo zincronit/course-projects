@@ -1,0 +1,90 @@
+==================================================
+       LISTADO DE MASCOTAS Y SUS ATENCIONES
+==================================================
+ID: 101
+   Name: Luna
+   Breed: Negro
+   Color: Labrador
+   Type: CANINO
+  Date: 20250407,  ID:1002,  Veterinary: 204,  Type: CONTROL,  Status: PROGRAMADA
+  Date: 20260408,  ID:1003,  Veterinary: 204,  Type: VACUNACION,  Status: PROGRAMADA
+ID: 102
+   Name: Michi
+   Breed: Blanco
+   Color: Siames
+   Type: FELINO
+No tiene atencion registrada
+ID: 103
+   Name: Rocky
+   Breed: Marron
+   Color: Bulldog
+   Type: CANINO
+  Date: 20251003,  ID:1004,  Veterinary: 201,  Type: VACUNACION,  Status: PROGRAMADA
+  Date: 20260408,  ID:1005,  Veterinary: 201,  Type: CONTROL,  Status: REPROGRAMADA
+ID: 104
+   Name: Nala
+   Breed: Gris
+   Color: Persa
+   Type: FELINO
+  Date: 20260408,  ID:1006,  Veterinary: 201,  Type: CONTROL,  Status: PROGRAMADA
+ID: 105
+   Name: Toby
+   Breed: Tricolor
+   Color: Beagle
+   Type: CANINO
+  Date: 20260409,  ID:1007,  Veterinary: 202,  Type: CASTRACION,  Status: PROGRAMADA
+ID: 106
+   Name: Simba
+   Breed: Naranja
+   Color: Comun
+   Type: FELINO
+  Date: 20260409,  ID:1008,  Veterinary: 204,  Type: VACUNACION,  Status: PROGRAMADA
+ID: 107
+   Name: Max
+   Breed: Negro
+   Color: PastorAleman
+   Type: CANINO
+  Date: 20260411,  ID:1009,  Veterinary: 201,  Type: CONTROL,  Status: PENDIENTE
+ID: 108
+   Name: Kira
+   Breed: Crema
+   Color: Siames
+   Type: FELINO
+No tiene atencion registrada
+ID: 109
+   Name: Dali
+   Breed: Blanco
+   Color: Americano
+   Type: FELINO
+  Date: 20251220,  ID:1010,  Veterinary: 207,  Type: CONTROL,  Status: PROGRAMADA
+ID: 110
+   Name: LuisXV
+   Breed: plomo
+   Color: Siberiano
+   Type: FELINO
+No tiene atencion registrada
+ID: 111
+   Name: Terry
+   Breed: Caramelo
+   Color: PastorAleman
+   Type: CANINO
+No tiene atencion registrada
+ID: 112
+   Name: Goku
+   Breed: Marron
+   Color: GoldenRetriever
+   Type: CANINO
+  Date: 20260414,  ID:1011,  Veterinary: 206,  Type: VACUNACION,  Status: PENDIENTE
+ID: 113
+   Name: Deysi
+   Breed: Blanco
+   Color: Esquimal
+   Type: CANINO
+No tiene atencion registrada
+ID: 114
+   Name: Gigo
+   Breed: Blanco
+   Color: Poodle
+   Type: CANINO
+No tiene atencion registrada
+TOTAL: 14 mascotas, 10atenciones

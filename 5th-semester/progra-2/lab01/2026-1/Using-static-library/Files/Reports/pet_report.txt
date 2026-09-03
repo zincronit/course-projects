@@ -1,0 +1,48 @@
+==================================================
+       MASCOTAS QUE DEBEN SER ESTERILIZADAS
+==================================================
+ID: 101
+   Name: Luna
+   Breed: Negro
+   Color: Labrador
+   Type: CANINO
+ID: 103
+   Name: Rocky
+   Breed: Marron
+   Color: Bulldog
+   Type: CANINO
+ID: 104
+   Name: Nala
+   Breed: Gris
+   Color: Persa
+   Type: FELINO
+ID: 106
+   Name: Simba
+   Breed: Naranja
+   Color: Comun
+   Type: FELINO
+ID: 107
+   Name: Max
+   Breed: Negro
+   Color: PastorAleman
+   Type: CANINO
+ID: 108
+   Name: Kira
+   Breed: Crema
+   Color: Siames
+   Type: FELINO
+ID: 110
+   Name: LuisXV
+   Breed: plomo
+   Color: Siberiano
+   Type: FELINO
+ID: 113
+   Name: Deysi
+   Breed: Blanco
+   Color: Esquimal
+   Type: CANINO
+ID: 114
+   Name: Gigo
+   Breed: Blanco
+   Color: Poodle
+   Type: CANINO
