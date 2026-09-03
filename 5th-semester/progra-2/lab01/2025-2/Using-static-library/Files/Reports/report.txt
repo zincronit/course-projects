@@ -1,0 +1,44 @@
+                Courses
+========================================
+INF263         Algoritmia
+INGA_FLORES_CESAR_ADOLFO
+Alumnos presenciales:         7
+Alumnos semiprecenciales:     5
+Alumnos virtuales:            5
+La clase sera 100% virual
+MEC270         Procesos_De_Manufactura
+PAIRAZAMAN_ALAMO_MOISES_MIGUEL
+Alumnos presenciales:         9
+Alumnos semiprecenciales:     10
+Alumnos virtuales:            2
+La clase sera 100% virual
+MEC289         Turbomaquinas_Y_Maquinas_De_Desplazamiento_Positivo
+DELGADO_GONZALES_GUILLERMO_ALFONSO
+Alumnos presenciales:         9
+Alumnos semiprecenciales:     6
+Alumnos virtuales:            0
+La clase se dictara en el aula
+MAT241         Metodos Numericos En Ingenieria
+HERNANDEZ_BARRIOS_EMILIO
+Alumnos presenciales:         13
+Alumnos semiprecenciales:     8
+Alumnos virtuales:            2
+La clase se dictara en el aula
+MEC206         Termodinamica 1
+SALAS_AGUERO_DANIEL
+Alumnos presenciales:         10
+Alumnos semiprecenciales:     4
+Alumnos virtuales:            1
+La clase se dictara en el aula
+INF246         Bases De Datos
+MEJIA_DIAZ_BLANCA_MILAGROS
+Alumnos presenciales:         13
+Alumnos semiprecenciales:     8
+Alumnos virtuales:            4
+La clase se dictara en el aula
+FIS220         Tecnicas Computacionales En Fisica
+VASQUEZ_PAZ_ALEX_MARTIN
+Alumnos presenciales:         13
+Alumnos semiprecenciales:     6
+Alumnos virtuales:            2
+La clase se dictara en el aula

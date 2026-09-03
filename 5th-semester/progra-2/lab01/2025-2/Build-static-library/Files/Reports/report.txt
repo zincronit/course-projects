@@ -1,0 +1,6 @@
+INF263         Algoritmia
+INGA_FLORES_CESAR_ADOLFO
+Alumnos presenciales:         1
+Alumnos semiprecenciales:     0
+Alumnos virtuales:            0
+La clase se dictara en el aula
