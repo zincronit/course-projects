@@ -8,11 +8,11 @@ bool operator >>(std::ifstream& fin, struct Book& book)
 {
     // IIM5175,Diamantes y pedernales,Jose Maria Arguedas,2,30.23
     book.code = read_string(fin);
-    if (book.code == nullptr) return false;
+    if (fin.eof()) return false;
     book.title = read_string(fin);
     book.author = read_string(fin);
-    book.price = read_double(fin);
     book.stock = read_int(fin);
+    book.price = read_double(fin);
     return true;
 }
 
@@ -21,7 +21,7 @@ bool operator >>(std::ifstream& fin, struct Customer& customer)
     // 54393647,Reyes Tang Edward
     customer.dni = read_int(fin);
     if (fin.eof()) return false;
-    customer.name = read_string(fin);
+    customer.name = read_string(fin, '\n');
     customer.requested_books = new struct RequestedBook[MAX_ORDERS]{};
     customer.book_count = 0;
     customer.total_payment = 0.0;
@@ -30,7 +30,7 @@ bool operator >>(std::ifstream& fin, struct Customer& customer)
 
 bool operator >>(struct RequestedBook& requested_book, struct Book* books)
 {
-    for (int i = 0; std::strcmp(books[i].code, "END"); i++)
+    for (int i = 0; std::strcmp(books[i].code, "END") != 0; i++)
     {
         if (std::strcmp(books[i].code, requested_book.book_code) == 0)
         {
@@ -75,9 +75,9 @@ void operator <<(std::ofstream& fout, const struct Book& book)
 {
     fout << std::fixed << std::setprecision(2);
     int width = LINE_WIDTH / COLUMNS;
-    print_text(fout, book.code, width);
-    print_text(fout, book.title, width);
-    print_text(fout, book.author, width);
+    print_text(fout, book.code, width - 10);
+    print_text(fout, book.title, width + 35);
+    print_text(fout, book.author, width + 5);
     fout << std::setw(width) << book.stock;
     fout << book.price << std::endl;
 }
@@ -85,28 +85,28 @@ void operator <<(std::ofstream& fout, const struct Book& book)
 void operator <<(std::ofstream& fout, const struct Customer& customer)
 {
     fout << std::fixed << std::setprecision(2);
-    int width = LINE_WIDTH / COLUMNS2;
+    int width = (LINE_WIDTH - 50)/ COLUMNS2;
     fout << std::left << std::setw(12) << customer.dni << customer.name << std::endl;
     fout << "Books Delivered" << std::endl;
+    print_header_customer(fout);
     for (int i = 0; i < customer.book_count; i++)
     {
-        print_header_customer(fout);
         if (customer.requested_books[i].fulfilled)
         {
             fout << std::right << std::setw(width) << customer.requested_books[i].order_number;
-            print_text(fout, customer.requested_books[i].book_code, width, false);
-            fout << customer.requested_books[i].price << std::endl;
+            print_text(fout, customer.requested_books[i].book_code, width, true);
+            fout << std::setw(width) << customer.requested_books[i].price << std::endl;
         }
     }
     fout << "Total Payment: " << customer.total_payment << std::endl;
     fout << "Books not Delivered duo to lack of stock" << std::endl;
+    print_header_customer(fout, false);
     for (int i = 0; i < customer.book_count; i++)
     {
-        print_header_customer(fout, false);
         if (not customer.requested_books[i].fulfilled)
         {
             fout << std::right << std::setw(width) << customer.requested_books[i].order_number;
-            print_text(fout, customer.requested_books[i].book_code, width, false);
+            print_text(fout, customer.requested_books[i].book_code, width, true);
         }
     }
     fout << std::endl;

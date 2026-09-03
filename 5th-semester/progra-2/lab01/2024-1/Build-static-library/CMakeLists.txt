@@ -3,6 +3,9 @@ project(Build_static_library)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
+add_library(Overloads STATIC Libraries/Overloads/overloads.cpp)
+
 add_executable(Build_static_library
         main.cpp
         Libraries/Overloads/overloads.hpp
@@ -15,3 +18,5 @@ add_executable(Build_static_library
         Libraries/Structs/RequestedBook.hpp
         Libraries/Test-overloads/test.hpp
         Libraries/Test-overloads/test.cpp)
+
+target_link_libraries(Build_static_library Overloads)

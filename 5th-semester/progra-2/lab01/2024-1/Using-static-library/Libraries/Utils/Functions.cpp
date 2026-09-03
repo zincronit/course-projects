@@ -32,8 +32,9 @@ void print_line(std::ofstream& fout, int width, char character)
 
 void print_title(std::ofstream& fout, const char* title, int width)
 {
-    fout << std::right << std::setw((std::strlen(title) + LINE_WIDTH) / 2);
+    fout << std::right << std::setw((std::strlen(title) + width) / 2) << title;
     fout << std::endl;
+    print_line(fout , width, '=');
 }
 
 void print_text(std::ofstream& fout, const char* text, int width, bool should_align_right)
