@@ -84,7 +84,7 @@ void print_report(const char* filepath,
 
 void print_title(std::ofstream& fout, const char* title, int width)
 {
-    fout <<std::right << std::setw((std::strlen(title) + width )/2)<< title<<std::endl;
-    for (int i = 0; i < width; i++) fout.put ('=');
+    fout << std::right << std::setw((std::strlen(title) + width) / 2) << title << std::endl;
+    for (int i = 0; i < width; i++) fout.put('=');
     fout << std::endl;
 }
