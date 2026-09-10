@@ -1,0 +1,84 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+/*
+ * ESTRATEGIA DE SOLUCIÓN:
+ * Se utiliza una única función recursiva sin iteraciones ni backtracking[cite: 1].
+ * El parámetro 'state' simplificado solo maneja 2 modos:
+ * 
+ * - state == 0 (BÚSQUEDA): Recorre la primera columna desde abajo (rows - 1) 
+ *   hacia arriba para encontrar el inicio de una nueva galería.
+ * - state == 1 (TRAZADO): Mueve el robot de izquierda a derecha utilizando 
+ *   el orden de prioridad estricto: ABAJO, DERECHA, ARRIBA.
+ */
+void processMine(int mineMap[][100], int rows, int cols, int r, int c, int galleryId, int state) {
+    // ESTADO 0: Búsqueda del punto de inicio en la columna 0
+    if (state == 0) {
+        if (r < 0) return; // Caso base: Se revisó toda la columna y no caben más galerías
+
+        if (mineMap[r][0] == 0) {
+            mineMap[r][0] = galleryId; // Marcar inicio de la galería
+            // Pasar a ESTADO 1 para comenzar a trazar hacia la derecha
+            processMine(mineMap, rows, cols, r, 0, galleryId, 1); 
+        } else {
+            // Probar en la fila superior
+            processMine(mineMap, rows, cols, r - 1, 0, galleryId, 0); 
+        }
+        return;
+    }
+
+    // ESTADO 1: Trazado de la galería
+    // Caso base de trazado: Se alcanzó el extremo derecho de la mina[cite: 1]
+    if (c == cols - 1) {
+        // Galería completada. Volver a ESTADO 0 para buscar el inicio de la siguiente desde el fondo
+        processMine(mineMap, rows, cols, rows - 1, 0, galleryId + 1, 0);
+        return;
+    }
+
+    // Prioridad 1: ABAJO (Para mantenerse pegado al suelo o galerías inferiores)[cite: 1]
+    if (r + 1 < rows && mineMap[r + 1][c] == 0) {
+        mineMap[r + 1][c] = galleryId;
+        processMine(mineMap, rows, cols, r + 1, c, galleryId, 1);
+    }
+    // Prioridad 2: DERECHA (Para avanzar horizontalmente hacia la meta)[cite: 1]
+    else if (c + 1 < cols && mineMap[r][c + 1] == 0) {
+        mineMap[r][c + 1] = galleryId;
+        processMine(mineMap, rows, cols, r, c + 1, galleryId, 1);
+    }
+    // Prioridad 3: ARRIBA (Para bordear rocas o barreras)[cite: 1]
+    else if (r - 1 >= 0 && mineMap[r - 1][c] == 0) {
+        mineMap[r - 1][c] = galleryId;
+        processMine(mineMap, rows, cols, r - 1, c, galleryId, 1);
+    }
+}
+
+int main() {
+    int rows = 6;
+    int cols = 11;
+    int mineMap[100][100] = {0}; 
+    
+    // Carga de datos auxiliares (Rocas)[cite: 1]
+    mineMap[3][5] = -1;
+    mineMap[4][5] = -1;
+
+    // Llamada inicial: Buscar la primera galería iniciando desde la fila inferior (rows - 1)
+    processMine(mineMap, rows, cols, rows - 1, 0, 1, 0);
+
+    // Impresión de la matriz resultante
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (mineMap[i][j] == 0) {
+                cout << setw(3) << ".";
+            } else if (mineMap[i][j] == -1) {
+                cout << setw(3) << "*";
+            } else {
+                cout << setw(3) << mineMap[i][j];
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}

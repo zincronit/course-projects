@@ -16,5 +16,6 @@
 #define NOT_FOUND -1
 #define TEXT_LENGTH 100
 #define INCREASE 5
+#define MAX_ATTENTION 200
 
 #endif //INC_2026_ee1_UTILS_HPP

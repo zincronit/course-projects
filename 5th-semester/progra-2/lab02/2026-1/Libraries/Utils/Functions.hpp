@@ -5,79 +5,47 @@
 #ifndef INC_2026_1_FUNCTIONS_HPP
 #define INC_2026_1_FUNCTIONS_HPP
 
-#include "Utils.hpp"
+#include "../Tools/tools.hpp"
 
-void open_input_file(std::ifstream& fin, const char* filepath);
+void load_information(const char*, int*&, char****&, int***&, double***&);
 
-void open_output_file(std::ofstream& fout, const char* filepath);
+int find_index(const int*, int, int);
 
-void print_line(std::ofstream& fout, int width, char character = '=');
+void append_date_capacity(int*&, char****&, int***&, double***&, int&, int&, int*&, int*&);
 
-void print_text(std::ofstream& fout, const char* text, int width, bool should_align_right = false);
+void change_pointer(int*&, char****&, int***&, double***&, int, int, int*&, int*&);
 
-void print_spaces(std::ofstream& fout, int extra, int width);
+int insert_new_date(int*, char****, int***, double***, int&, int, int*, int*);
 
-int read_int(std::ifstream& fin, bool can_read = true);
+void append_attention(
+    char***&,
+    int**&,
+    double**&,
+    int&,
+    int&,
+    int,
+    int,
+    int,
+    int,
+    double,
+    char*,
+    char*,
+    char*);
 
-double read_double(std::ifstream& fin, bool can_read = true);
+void append_attention_capacity(char***&, int**&, double**&, int&, int);
 
-char* allocate_string(const char* text);
+void attention_report(const char*, int*, char****, int***, double***);
 
-char* read_string(std::ifstream&, char delimiter = ',');
+void print_title(std::ofstream& );
 
-int read_date(std::ifstream& fin);
+void print_header(std::ofstream& );
 
-int read_code(std::ifstream& fin);
+void print_information(std::ofstream&  , char*** , int** , double**  );
 
-int read_time(std::ifstream& fin);
+void print_time(std::ofstream& , int, int);
 
-void load_information(const char* filepath,
-                      int* & dates,
-                      char**** & text_data,
-                      int*** & int_data,
-                      double*** & double_data);
+void shrink_date_capacity(int*& ,char****& , int***& , double***& , int ,const int*);
 
-void append_date_capacity(int* & dates,
-                          char**** & text_data,
-                          int*** & int_data,
-                          double*** & double_data,
-                          int count);
-
-// void append_attention_capacity(char**** & text_data, )
-
-void change_pointer(int* & dates,
-                    char**** & text_data,
-                    int*** & int_data,
-                    double*** & double_data,
-                    int& size);
-
-int find_date_index(int date, int* dates);
-
-void insert_new_attention_date(std::ifstream&,
-                               int date,
-                               int* dates,
-                               char**** text_data,
-                               int*** int_data,
-                               double*** double_data,
-                               int& date_count,
-                               int& attention_count);
-
-void swap_char_pointer(char***&, char***&);
-
-void swap_int_pointer(int**&, int**&);
-
-void swap_double_pointer(double**&, double**&);
-
-void read_attention(std::ifstream&,
-                    char***,
-                    int**,
-                    double**);
-
-void append_attention_to_date(std::ifstream&,
-                              char**** text_data,
-                              int*** int_data,
-                              double*** double_data,
-                              int& attention_count,
-                              int index);
+void shrink_single_date_attentions(char***& , int**& , double**& , int );
 
 #endif //INC_2026_1_FUNCTIONS_HPP
