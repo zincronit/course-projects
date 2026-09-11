@@ -7,7 +7,6 @@
 
 int main()
 {
-
     int* dates;
     char**** text_data;
     int*** int_data;
@@ -40,6 +39,7 @@ int main()
         int_data,
         double_data
     );
+
 
     return 0;
 }

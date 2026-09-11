@@ -3,6 +3,7 @@ project(2026_1)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_library(Tools STATIC Libraries/Tools/tools.cpp)
 
 add_executable(2026_1
         main.cpp
@@ -11,5 +12,7 @@ add_executable(2026_1
         Libraries/Utils/Functions.cpp
         Libraries/Tools/tools.hpp
         Libraries/Tools/tools.cpp)
+
+target_link_libraries(2026_1 Tools)
 
 
