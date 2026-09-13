@@ -1,0 +1,9 @@
+                                                                                             PackMart S.A.
+                                                                                           REGISTRO DE VETAS
+========================================================================================================================================================================================================
+CODIGO DE VENTAS                                  CODIGO DEL CLIENTE                                FECHA DE VENTA                                    CATNAL DE VENTA                                   
+V00001                                            C0277                                             2026-07-07                                        WEB                                               
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PRODUCTOS COMPRADOS: 
+CODIGO    DESCRIPCION       PRESENTACION                    CATEGORIA         UNID X PRES           CANTIDAD              COSTO UNIT            PRECIO UNIT           DESCUENTO             
+P0213     UNIDAD            
