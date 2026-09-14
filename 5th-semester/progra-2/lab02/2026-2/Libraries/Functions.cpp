@@ -268,7 +268,7 @@ void print_report(const char* filepath, char*** sales, char**** text_data, int**
         {
             print_header_products(fout);
             print_products(fout, text_data[i], int_data[i], total_cost, total_price);
-            print_statistics(fout , total_cost, total_price , total_win );
+            print_statistics(fout, total_cost, total_price, total_win);
         }
     }
     fout.close();
@@ -296,7 +296,7 @@ void print_sale_detail(std::ofstream& fout, char** sale)
     fout << std::setw(width) << sale[0] << std::setw(width) << sale[1];
     fout << std::setw(width) << sale[2] << std::setw(width) << sale[3];
     fout << std::endl;
-    print_line(fout , LINE_WIDTH ,'-');
+    print_line(fout, LINE_WIDTH, '-');
 }
 
 void print_header_products(std::ofstream& fout)
@@ -312,9 +312,10 @@ void print_header_products(std::ofstream& fout)
     print_text(fout, "COSTO UNIT", width);
     print_text(fout, "PRECIO UNIT", width);
     print_text(fout, "DESCUENTO", width);
-    fout <<std::endl;
+    fout << std::endl;
 }
-void print_products(std::ofstream& fout, char*** text_data,int** int_data, double& total_cost, double& total_price)
+
+void print_products(std::ofstream& fout, char*** text_data, int** int_data, double& total_cost, double& total_price)
 {
     int width = LINE_WIDTH / COLUMNS;
     for (int i = 0; text_data[i] != nullptr; i++)
@@ -322,25 +323,32 @@ void print_products(std::ofstream& fout, char*** text_data,int** int_data, doubl
         char** aux_char = text_data[i];
         int* aux_int = int_data[i];
         fout << std::setw(width - 12) << aux_char[0] << std::setw(width - 4) << aux_char[1];
-        fout << std::setw(width + 10) << aux_char[2] << std::setw(width) << aux_char[3];
+        if (aux_char[2] == nullptr)
+        {
+            print_text(fout, "-", width + 10);
+            print_text(fout, "-", width);
+        } else
+        {
+            fout << std::setw(width + 10) << aux_char[2] << std::setw(width) << aux_char[3];
+        }
         fout << std::setw(width) << aux_int[0] << std::setw(width) << aux_int[1];
-        fout << std::setw(width) << aux_int[2] << std::setw(width) << aux_int[3];
-        fout << std::setw(width) << aux_int[4] << std::endl;
+        fout << std::setw(width) << aux_int[3] << std::setw(width) << aux_int[4];
+        fout << std::setw(width) << aux_int[2] << std::endl;
         total_cost += aux_int[3];
-        total_price += (double)aux_int[4]*(100 - aux_int[2])/100;
+        total_price += (double) aux_int[4] * (100 - aux_int[2]) / 100;
     }
     print_line(fout, LINE_WIDTH, '-');
 }
+
 void print_statistics(std::ofstream& fout, double& total_cost, double& total_price, double total_win)
 {
     fout << std::fixed << std::setprecision(2);
     total_win = total_price - total_cost;
-    print_text(fout , "COSTO TOTAL",50 );
+    print_text(fout, "COSTO TOTAL", 50);
     fout << total_cost << std::endl;
-    print_text(fout , "PRECIO TOTAL",50 );
+    print_text(fout, "PRECIO TOTAL", 50);
     fout << total_price << std::endl;
-    print_text(fout , "GANANCIA TOTAL",50 );
+    print_text(fout, "GANANCIA TOTAL", 50);
     fout << total_win << std::endl;
     print_line(fout);
-
 }

@@ -10,7 +10,6 @@ int main()
     char**** text_data;
     int*** int_data;
     load_sales("../Files/Data/Ventas.csv", sales);
-    // std::cout << sales[4][3] << std::endl;
     print_report(
         "../Files/Reports/sales_report.txt",
         sales,
@@ -47,8 +46,9 @@ int main()
         int_data,
         true
     );
-
-    // std::cout << text_data[5][1][3] << std::endl;
+    // std::cout << sales[0][0] << std::endl;
+    //
+    // std::cout << int_data[0][0][2] << std::endl;
 
     return 0;
 }
