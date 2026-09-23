@@ -17,14 +17,24 @@ char* read_string(std::ifstream& , char character = ',');
 void print_text(std::ofstream& , const char* , int , bool should_align_right = false);
 void print_line(std::ofstream& , char character = '=' , int width = LINE_WIDTH);
 
-void load_patients(const char*  , void*& );
+void load_patients(const char* , void*& );
 
-void* read_patient(std::ifstream&);
+void* read_patient(std::ifstream& );
 void append_patient_capacity(void**& , int& , int);
 
-void load_attention(const char* , void* );
+void load_attentions(const char* , void* );
 
 int* read_date(std::ifstream& );
+
 int* read_time(std::ifstream& );
 
+int find_index(void** , int* );
+bool is_equal(void**, int*);
+void append_attentions(void** , int, int* , int* , int* ,int*, double*);
+void append_attention_capacity(void**&, int& , int);
+void* insert_data( int* , int* , double*);
+void make_report(const char* ,void* );
+void print_title(std::ofstream& );
+void print_header(std::ofstream& );
+void print_patients(std::ofstream& , void**);
 #endif //INC_2026_1_FUNCTIONS_HPP

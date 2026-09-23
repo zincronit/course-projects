@@ -10,6 +10,8 @@ int main()
 {
     void* patients;
     load_patients("../Files/Data/pacientes.csv", patients);
-    load_attention("../Files/Data/visitas.csv", patients);
+    load_attentions("../Files/Data/visitas.csv", patients);
+    std::cout << ID << std::endl;
+    make_report("../Files/Reports/report.txt", patients);
     return 0;
 }
