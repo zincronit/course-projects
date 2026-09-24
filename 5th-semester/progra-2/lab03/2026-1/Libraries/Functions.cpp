@@ -4,14 +4,12 @@
 
 #include "Functions.hpp"
 
-#include <algorithm>
-
 void open_input_file(std::ifstream& fin, const char* filepath)
 {
     fin.open(filepath);
     if (not fin.is_open())
     {
-        std::cout << "Error opening file" << filepath << std::endl;
+        std::cout << "Error opening file " << filepath << std::endl;
         std::exit(1);
     }
 }
@@ -21,27 +19,27 @@ void open_output_file(std::ofstream& fout, const char* filepath)
     fout.open(filepath);
     if (not fout.is_open())
     {
-        std::cout << "Error opening file" << filepath << std::endl;
+        std::cout << "Error opening file " << filepath << std::endl;
         std::exit(1);
     }
 }
 
-int* read_int(std::ifstream& fin, bool read_character)
+int* read_int(std::ifstream& fin, bool can_read)
 {
     int *value, aux;
     fin >> aux;
     if (fin.eof()) return nullptr;
-    value = new int;
-    *value = aux;
-    if (read_character) fin.get();
+    if (can_read) fin.get();
+    value = new int{aux};
     return value;
 }
 
-double* read_double(std::ifstream& fin, bool read_character)
+double* read_double(std::ifstream& fin, bool can_read)
 {
-    double* value = new double;
-    fin >> *value;
-    if (read_character) fin.get();
+    double *value, aux;
+    fin >> aux;
+    if (can_read) fin.get();
+    value = new double{aux};
     return value;
 }
 
@@ -54,12 +52,17 @@ char* allocate_string(const char* text)
 
 char* read_string(std::ifstream& fin, char character)
 {
-    char* string;
-    char buffer[TEXT_LENGTH]{};
-    fin.getline(buffer, TEXT_LENGTH, character);
+    char *string, buffer[TEXT_LENGTH];
+    fin.getline(buffer,TEXT_LENGTH, character);
     if (fin.eof()) return nullptr;
     string = allocate_string(buffer);
     return string;
+}
+
+void print_line(std::ofstream& fout, char character, int width)
+{
+    for (int i = 0; i < width; i++) fout.put(character);
+    fout << std::endl;
 }
 
 void print_text(std::ofstream& fout, const char* text, int width, bool should_align_right)
@@ -69,10 +72,14 @@ void print_text(std::ofstream& fout, const char* text, int width, bool should_al
     fout << std::setw(width) << text;
 }
 
-void print_line(std::ofstream& fout, char character, int width)
+int* read_time(std::ifstream& fin)
 {
-    for (int i = 0; i < width; i++) fout.put(character);
-    fout << std::endl;
+    int* time;
+    int hh, mm;
+    char c;
+    fin >> hh >> c >> mm >> c;
+    time = new int{hh * 3600 + mm * 60};
+    return time;
 }
 
 int* read_date(std::ifstream& fin)
@@ -80,49 +87,32 @@ int* read_date(std::ifstream& fin)
     int* date;
     int dd, mm, yy;
     char c;
-    // 2026-04-01
     fin >> yy;
     if (fin.eof()) return nullptr;
-    fin >> c >> mm >> c >> dd;
-    fin.get();
+    fin >> c >> mm >> c >> dd >> c;
     date = new int{yy * 10000 + mm * 100 + dd};
     return date;
-}
-
-int* read_time(std::ifstream& fin)
-{
-    int* time;
-    int hh, mm;
-    char c;
-    // 08:00
-    fin >> hh;
-    if (fin.eof()) return nullptr;
-    fin >> c >> mm;
-    fin.get();
-    time = new int{hh * 3600 + mm * 60};
-    return time;
 }
 
 void load_patients(const char* filepath, void*& patients)
 {
     std::ifstream fin;
     open_input_file(fin, filepath);
-
-    int count = 0, capacity = 0;
-    void **aux = nullptr, *patient;
+    void **aux_patients = nullptr, *patient = nullptr;
+    int capacity = 0, count = 0;
     while (true)
     {
         patient = read_patient(fin);
         if (fin.eof()) break;
         if (count >= capacity - 1)
-            append_patient_capacity(aux, capacity, count);
-        aux[count] = patient;
-        ++count;
+            append_patient_capacity(aux_patients, capacity, count);
+        aux_patients[count] = patient;
+        count++;
     }
-    patients = aux;
+    shrink_patient_capacity(aux_patients, count);
+    patients = aux_patients;
     fin.close();
 }
-
 
 void* read_patient(std::ifstream& fin)
 {
@@ -158,13 +148,21 @@ void append_patient_capacity(void**& patients, int& capacity, int count)
     patients = aux;
 }
 
+void shrink_patient_capacity(void**& patients, int count)
+{
+    void** aux = new void *[count + 1]{};
+    for (int i = 0; i < count; i++) aux[i] = patients[i];
+    delete[] patients;
+    patients = aux;
+}
+
 void load_attentions(const char* filepath, void* patients)
 {
     std::ifstream fin;
     open_input_file(fin, filepath);
-    int count[MAX_ATTENTION]{}, capacity[MAX_ATTENTION]{};
     int *date, *time, *id, index;
     double* cost;
+    int capacity[MAX_ATTENTIONS]{}, count[MAX_ATTENTIONS]{};
     while (true)
     {
         // 2026-04-01,08:00,30001001,75.00
@@ -173,55 +171,69 @@ void load_attentions(const char* filepath, void* patients)
         time = read_time(fin);
         id = read_int(fin);
         cost = read_double(fin);
-        index = find_index((void **) patients, id);
+        index = find_index(static_cast<void **>(patients), id);
         if (index == NOT_FOUND)
         {
             delete date;
             delete time;
-            delete cost;
             delete id;
+            delete cost;
             continue;
         }
-        append_attentions((void **) patients, index, capacity, count, date, time, cost);
+        append_attention(
+            static_cast<void **>(patients),
+            index,
+            capacity[index],
+            count[index],
+            date,
+            time,
+            cost
+        );
         delete id;
     }
-
     fin.close();
 }
 
 int find_index(void** patients, int* id)
 {
     for (int i = 0; patients[i] != nullptr; i++)
-    {
-        if (is_equal((void **) patients[i], id)) return i;
-    }
+        if (has_same_id(patients[i], id)) return i;
     return NOT_FOUND;
 }
 
-bool is_equal(void** patient, int* id)
+bool has_same_id(void* patient, int* id)
 {
-    return *(int *) patient[ID] == *id;
+    void** aux_patient = static_cast<void **>(patient);
+    int* patient_id = static_cast<int *>(aux_patient[ID]);
+    return *patient_id == *id;
 }
 
-void append_attentions(
-    void** patients,
-    int index,
-    int* capacity,
-    int* count,
-    int* date,
-    int* time,
-    double* cost)
+void append_attention(void** patients, int index, int& capacity, int& count, int* date, int* time, double* cost)
 {
-    void** patient = (void **) patients[index];
-    void** attentions = (void **) patient[ATTENTIONS];
-    if (count[index] >= capacity[index] - 1)
+    void** patient = static_cast<void **>(patients[index]);
+    void** attentions = static_cast<void **>(patient[ATTENTIONS]);
+    if (count >= capacity - 1)
     {
-        append_attention_capacity(attentions, capacity[index], count[index]);
+        append_patient_capacity(attentions, capacity, count);
         patient[ATTENTIONS] = attentions;
     }
-    *(double *) patient[TOTAL_COST] += *cost;
-    attentions[count[index]] = insert_data(date, time, cost);
-    ++count[index];
+    *static_cast<double *>(patient[TOTAL_COST]) += *cost;
+    attentions[count] = insert_data(date, time, cost);
+    count++;
+}
+
+void append_attention_capacity(void**& attentions, int& capacity, int count)
+{
+    capacity += INCREASE;
+    void** aux = new void *[capacity]{};
+    if (capacity == INCREASE)
+    {
+        attentions = aux;
+        return;
+    }
+    for (int i = 0; i < count; i++) aux[i] = attentions[i];
+    delete[] attentions;
+    attentions = aux;
 }
 
 void* insert_data(int* date, int* time, double* cost)
@@ -233,32 +245,20 @@ void* insert_data(int* date, int* time, double* cost)
     return attention;
 }
 
-void append_attention_capacity(void**& attentios, int& capacity, int count)
-{
-    capacity += INCREASE;
-    void** aux = new void *[capacity]{};
-    if (capacity == INCREASE)
-    {
-        attentios = aux;
-        return;
-    }
-    for (int i = 0; i < count; i++) aux[i] = attentios[i];
-    delete[] attentios;
-    attentios = aux;
-}
-
 void make_report(const char* filepath, void* patients)
 {
     std::ofstream fout;
     open_output_file(fout, filepath);
     fout << std::fixed << std::setprecision(2);
     print_title(fout);
-    void** aux_patients = (void **) patients;
-    print_header(fout);
-    for (int i = 0; aux_patients[i] != nullptr; i++)
-    {
-        print_patients(fout, (void **) aux_patients[i]);
-    }
+    int width = LINE_WIDTH / COLUMNS;
+    const char* headers[] = {"ID", "Nombre", "Edad", "Genero", "Visitas", "Total (S/)"};
+    print_line(fout, '-');
+    for (int i = 0; i < sizeof(headers) / sizeof(headers[0]); i++) print_text(fout, headers[i], width);
+    fout << std::endl;
+    print_line(fout, '-');
+    void** aux_patients = static_cast<void **>(patients);
+    for (int i = 0; aux_patients[i] != nullptr; i++) print_patient(fout, static_cast<void **>(aux_patients[i]));
     fout.close();
 }
 
@@ -272,31 +272,17 @@ void print_title(std::ofstream& fout)
     fout << std::endl;
 }
 
-void print_header(std::ofstream& fout)
+void print_patient(std::ofstream& fout, void** patient)
 {
-    int width = LINE_WIDTH / COLUMNS;
-    print_line(fout, '-');
-    print_text(fout, "ID", width);
-    print_text(fout, "Nombre", width);
-    print_text(fout, "Edad", width);
-    print_text(fout, "Genero", width);
-    print_text(fout, "Visitas", width);
-    print_text(fout, "Total", width);
-    fout << std::endl;
-    print_line(fout, '-');
-}
-
-void print_patients(std::ofstream& fout, void** patient)
-{
-    int width = LINE_WIDTH / COLUMNS;
     int attention_count = 0;
-    fout << std::setw(width) << *(int *) patient[ID];
-    print_text(fout, (char *) patient[NAME], width);
-    fout << std::setw(width) << *(int *) patient[AGE];
-    fout << std::setw(width) << *(char *) patient[GENRE];
-    void** attentions = (void **) patient[ATTENTIONS];
-    for (int i= 0 ; attentions[i] != nullptr; i++ ) attention_count++;
+    void** attentions = static_cast<void **>(patient[ATTENTIONS]);
+    for (int i = 0; attentions[i] != nullptr; i++) attention_count++;
+
+    int width = LINE_WIDTH / COLUMNS;
+    fout << std::setw(width) << *static_cast<int *>(patient[ID]);
+    fout << std::setw(width) << static_cast<char *>(patient[NAME]);
+    fout << std::setw(width) << *static_cast<int *>(patient[AGE]);
+    fout << std::setw(width) << *static_cast<char *>(patient[GENRE]);
     fout << std::setw(width) << attention_count;
-    fout << *(double*)patient[TOTAL_COST];
-    fout << std::endl;
+    fout << *static_cast<double *>(patient[TOTAL_COST]) << std::endl;
 }
