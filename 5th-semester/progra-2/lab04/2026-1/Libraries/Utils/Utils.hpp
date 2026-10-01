@@ -7,17 +7,18 @@
 
 #include <iostream>
 #include <iomanip>
-#include <fstream>
 #include <cstring>
+#include <fstream>
+#include <cstdlib>
+
 
 #define LINE_WIDTH 100
 #define COLUMNS 6
-#define NOT_FOUND -1
 #define TEXT_LENGTH 100
 #define MAX 300
 
-enum list {HEAD, SIZE};
-enum node {DATA, NEXT};
-enum attention {ID, DATE , REASON , TIME , STATUS, NAME , BREED, COLOR , SPECIES };
+enum List {HEAD, SIZE};
+enum Node {DATA, NEXT};
+enum Register {ID, DATE, TIME , NAME , BREED , COLOR};
 
 #endif //INC_2026_1_UTLIS_HPP

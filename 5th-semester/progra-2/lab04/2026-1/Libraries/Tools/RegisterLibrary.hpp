@@ -7,9 +7,10 @@
 
 #include "../Utils/Functions.hpp"
 
-void* read_attention(std::ifstream& );
-int compare_data(const void*  , const void* );
+void* read_register(std::ifstream& );
+int compare_data(const void*, const void* );
 int validate_data(void* , void* );
-void print_attention(void* ,std::ofstream& );
+void print_register(std::ofstream& , void* );
+
 
 #endif //INC_2026_1_REGISTERLIBRARY_HPP

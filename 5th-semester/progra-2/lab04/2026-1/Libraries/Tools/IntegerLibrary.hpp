@@ -6,8 +6,10 @@
 #define INC_2026_1_INTEGERLIBRARY_HPP
 
 #include "../Utils/Functions.hpp"
-void* read_integer(std::ifstream& );
+
+void* read_integer(std::ifstream&);
 int compare_integer(const void* , const void* );
-int validate_integer( void* , void* );
-void print_integer(void* , std::ofstream& );
+int validate_integer(void*  , void* );
+void print_integer(std::ofstream& , void*);
+
 #endif //INC_2026_1_INTEGERLIBRARY_HPP
