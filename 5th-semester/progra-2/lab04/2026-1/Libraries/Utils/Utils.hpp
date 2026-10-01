@@ -11,7 +11,7 @@
 #include <cstring>
 
 #define LINE_WIDTH 100
-#define COLUMNS 5
+#define COLUMNS 6
 #define NOT_FOUND -1
 #define TEXT_LENGTH 100
 #define MAX 300

@@ -9,7 +9,7 @@ void open_input_file(std::ifstream& fin, const char* filepath)
     fin.open(filepath);
     if (not fin.is_open())
     {
-        std::cout << "Error opening file" << filepath << std::endl;
+        std::cout << "Error opening file " << filepath << std::endl;
         std::exit(1);
     }
 }
@@ -19,7 +19,7 @@ void open_output_file(std::ofstream& fout, const char* filepath)
     fout.open(filepath);
     if (not fout.is_open())
     {
-        std::cout << "Error opening file" << filepath << std::endl;
+        std::cout << "Error opening file " << filepath << std::endl;
         std::exit(1);
     }
 }
@@ -80,7 +80,7 @@ int* read_date(std::ifstream& fin, bool can_read_character)
     char character;
     fin >> dd >> character >> mm >> character >> yy;
     if (can_read_character) fin.get();
-    int* date = new int{yy * 1000 + mm * 100 + dd};
+    int* date = new int{yy * 10000 + mm * 100 + dd};
     return date;
 }
 
@@ -93,26 +93,6 @@ int* read_time(std::ifstream& fin, bool can_read_character)
     int* time = new int{hh * 3600 + mm * 60};
     return time;
 }
-
-void* initialize_list()
-{
-    void** aux = new void *[2]{};
-    aux[HEAD] = nullptr;
-    aux[SIZE] = new int{0};
-    return aux;
-}
-
-void insert_back(void* & list, void* data)
-{
-    void** aux_list = static_cast<void **>(list);
-    void** new_node = new void *[2]{};
-    new_node[DATA] = data;
-    new_node[NEXT] = nullptr;
-    void** last = get_last_node(list);
-    last == nullptr ? aux_list[HEAD] = new_node : last[NEXT] = new_node;
-    *static_cast<int *>(aux_list[SIZE]) += 1;
-}
-
 
 void** get_last_node(void* list)
 {

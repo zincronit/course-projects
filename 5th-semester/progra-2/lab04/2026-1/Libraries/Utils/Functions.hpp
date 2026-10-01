@@ -27,10 +27,6 @@ int* read_date(std::ifstream&, bool can_read_character = true);
 
 int* read_time(std::ifstream& , bool can_read_character = true);
 
-void* initialize_list();
-
-void insert_back(void*&, void*);
-
 void** get_last_node(void* list);
 
 bool is_empty_list(void*);

@@ -9,8 +9,9 @@ add_executable(2026_1
         Libraries/Utils/Utils.hpp
         Libraries/Utils/Functions.cpp
         Libraries/Tools/RegisterLibrary.hpp
-        Libraries/Tools/IntigerLibrary.hpp
+        Libraries/Tools/IntegerLibrary.hpp
         Libraries/Tools/GenericLibrary.hpp
         Libraries/Tools/GenericLibrary.cpp
         Libraries/Tools/RegisterLibrary.cpp
+        Libraries/Tools/IntegerLibrary.cpp
 )
