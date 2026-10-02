@@ -6,32 +6,31 @@
 
 #include <list>
 
-void array_process(void* array, void* (*read_data)(std::ifstream&), const char* filepath)
+void array_process(void** array, void* (*read_data)(std::ifstream&), const char* filepath)
 {
     std::ifstream fin;
     open_input_file(fin, filepath);
-    void *data, **aux_array = static_cast<void **>(array);
+    void *data;
     int count = 0;
     while (true)
     {
         data = read_data(fin);
         if (fin.eof()) break;
-        aux_array[count] = data;
+        array[count] = data;
         count++;
     }
-    aux_array[count] = nullptr;
+    array[count] = nullptr;
     fin.close();
 }
 
-void build_list(void* array, void*& list, int (*compare)(const void*, const void*))
+void build_list(void** array, void*& list, int (*compare)(const void*, const void*))
 {
-    void** aux_array = static_cast<void **>(array);
     int size = 0;
-    for (int i = 0; aux_array[i] != nullptr; i++) size++;
+    for (int i = 0; array[i] != nullptr; i++) size++;
     qsort(array, size, sizeof(void *), compare);
     list = initialize_list();
-    for (int i = 0; aux_array[i] != nullptr; i++)
-        insert_back(list, aux_array[i]);
+    for (int i = 0; array[i] != nullptr; i++)
+        insert_back(list, array[i]);
 }
 
 void* initialize_list()
@@ -113,7 +112,7 @@ void fusion_list(void*& list1, void* list2, int (*compare)(void*, void*))
         else tail[NEXT] = aux_list2[HEAD];
     }
     aux_list1[HEAD] = head;
-    *static_cast<int *>(aux_list2[SIZE]) += *static_cast<int *>(aux_list2[SIZE]);
+    *static_cast<int *>(aux_list1[SIZE]) += *static_cast<int *>(aux_list2[SIZE]);
     delete static_cast<int *>(aux_list2[SIZE]);
     delete [] aux_list2;
 }

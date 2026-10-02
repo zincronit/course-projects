@@ -31,18 +31,18 @@ void* read_register(std::ifstream& fin)
 
 int compare_data(const void* a, const void* b)
 {
-    void* const* aux1 = static_cast<void * const *>(a);
-    void* const* aux2 = static_cast<void * const *>(b);
+    const void* const* aux1 = static_cast<const void * const *>(a);
+    const void* const* aux2 = static_cast<const void * const *>(b);
 
-    void** data1 = static_cast<void **>(aux1[0]);
-    void** data2 = static_cast<void **>(aux2[0]);
+    const void* const* data1 = static_cast<const void * const*>(*aux1);
+    const void* const* data2 = static_cast<const void * const *>(*aux2);
 
-    int* date1 = static_cast<int *>(data1[DATE]);
-    int* date2 = static_cast<int *>(data2[DATE]);
+    const int* date1 = static_cast<const int *>(data1[DATE]);
+    const int* date2 = static_cast<const int *>(data2[DATE]);
     if (*date1 != *date2) return *date1 - *date2;
 
-    int* time1 = static_cast<int *>(data1[TIME]);
-    int* time2 = static_cast<int *>(data2[TIME]);
+    const int* time1 = static_cast<const int *>(data1[TIME]);
+    const int* time2 = static_cast<const int *>(data2[TIME]);
     return *time1 - *time2;
 }
 
