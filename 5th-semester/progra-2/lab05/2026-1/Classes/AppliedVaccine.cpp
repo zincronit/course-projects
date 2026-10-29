@@ -92,12 +92,14 @@ void operator >>(std::ifstream& input, class AppliedVaccine& applied_vaccine)
     applied_vaccine.read_applied_vaccine(input);
 }
 
-void operator >>(std::ofstream& output,const class AppliedVaccine& applied_vaccine)
+void operator <<(std::ofstream& output,const class AppliedVaccine& applied_vaccine)
 {
     char name[TEXT_LENGTH] , veterinary_id[TEXT_LENGTH];
     applied_vaccine.get_name(name);
     applied_vaccine.get_veterinary_id(veterinary_id);
+    output << std::endl;
     output << name << " : " << applied_vaccine.get_date() << " (";
     output << applied_vaccine.get_dose() << "ml, ";
     output << veterinary_id << ")";
+    // output << std::endl;
 }

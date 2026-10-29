@@ -63,7 +63,7 @@ void Veterinary::operator <<=(const char* filepath)
     {
         class AppliedVaccine applied_vaccine;
         input.getline(pet_name, TEXT_LENGTH, ',');
-        if (input.eof()) return;
+        if (input.eof()) break;
         int owner_dni = Utils::read_int(input);
         int index = find_index(owner_dni, pet_name);
         if (index == NOT_FOUND)
@@ -97,10 +97,16 @@ void Veterinary::operator <<(const char* filepath) const
     for (int i = 0; i < 60; i++) output.put('=');
     output << std::endl << "REPORTE DE CARTILLAS - VETIRINARIA HUELLITAS Y PLUMITAS" << std::endl;
     for (int i = 0; i < 60; i++) output.put('=');
-    //
-    // for (int i = 0; i < pet_count; i++)
-    // {
-    //     <<pet_list[i]
-    // }
+
+    int current_dni = -1;
+    for (int i = 0 ; i < pet_count; i++)
+    {
+        int owner_dni = pet_list[i].get_owner_dni();
+        output << "\nDNI : " << owner_dni << std::endl << std::endl;
+        output << pet_list[i];
+
+
+    }
+
     output.close();
 }

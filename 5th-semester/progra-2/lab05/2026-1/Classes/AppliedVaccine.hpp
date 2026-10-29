@@ -44,6 +44,6 @@ private:
 };
 void operator >> (std::ifstream& , class AppliedVaccine& );
 
-void operator >> (std::ofstream& ,const class AppliedVaccine& );
+void operator << (std::ofstream& ,const class AppliedVaccine& );
 
 #endif //INC_2026_1_APPLIEDVACCINE_HPP

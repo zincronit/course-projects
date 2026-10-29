@@ -124,6 +124,13 @@ bool Pet::operator ~() const
         for (int j = i + 1; j < vaccine_count; j++)
             if (vaccine_list[i] == vaccine_list[j]) return true;
     }
+    return false;
+}
+
+void Pet::print_vaccine_list(std::ofstream& output) const
+{
+    for (int i = 0 ; i < vaccine_count; i++)
+        output << vaccine_list[i];
 }
 
 void operator >>(std::ifstream& input, class Pet& pet)
@@ -134,8 +141,12 @@ void operator >>(std::ifstream& input, class Pet& pet)
 void operator <<(std::ofstream& output,const class Pet& pet)
 {
     output << std::fixed << std::setprecision(2);
-    char name[TEXT_LENGTH], specie[TEXT_LENGTH], veterinary_id[TEXT_LENGTH];
+    char name[TEXT_LENGTH], specie[TEXT_LENGTH];
     pet.get_name(name);
+    pet.get_specie(specie);
     output << "Mascota :" << name << "(" << specie << ", ";
     output << pet.get_age() << " anios, " << pet.get_weight() << " kg" << ")";
+
+    if (~pet) output << "\n** ALERTA: cartilla con registros duplicados ** \n\n";
+    pet.print_vaccine_list(output);
 }

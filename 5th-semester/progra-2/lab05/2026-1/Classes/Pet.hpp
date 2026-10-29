@@ -50,6 +50,8 @@ public:
     void operator += (const class AppliedVaccine& );
 
     bool operator ~() const;
+
+    void print_vaccine_list(std::ofstream& output) const;
 private:
     int owner_dni;
     char* name;
