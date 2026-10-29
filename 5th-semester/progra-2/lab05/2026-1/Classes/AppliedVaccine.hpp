@@ -15,33 +15,35 @@ public:
 
     ~AppliedVaccine();
 
-    void get_name(char*) const;
+    void get_name(char* name) const;
 
-    void set_name(const char*);
+    void set_name(char* const name);
 
     int get_date() const;
 
-    void set_date(const int);
+    void set_date(const int date);
 
     double get_dose() const;
 
-    void set_dose(const double);
+    void set_dose(const double dose);
 
-    void get_veterinary_license(char*) const;
+    void get_veterinary_id(char* id) const;
 
-    void set_veterinary_license(const char*);
+    void set_veterinary_id(char* const veterinary_id);
 
-    void read_applied_vaccine(std::istream& );
+    void read_applied_vaccine(std::ifstream&);
 
-    AppliedVaccine& operator = (const class AppliedVaccine&);
+    AppliedVaccine& operator = (const class AppliedVaccine& );
+
+    bool operator == (const class AppliedVaccine& ) const;
 private:
     char* name;
     int date;
     double dose;
-    char* veterinary_license;
+    char* veterinary_id;
 };
+void operator >> (std::ifstream& , class AppliedVaccine& );
 
-void operator >> (std::istream& , AppliedVaccine&);
-
+void operator >> (std::ofstream& ,const class AppliedVaccine& );
 
 #endif //INC_2026_1_APPLIEDVACCINE_HPP

@@ -4,6 +4,7 @@
 
 #include "Pet.hpp"
 
+#include <charconv>
 
 Pet::Pet()
 {
@@ -11,130 +12,130 @@ Pet::Pet()
     name = nullptr;
     specie = nullptr;
     age = 0;
-    weight = 0.0;
-    veterinary_code = nullptr;
+    weight = 0;
+    veterinary_id = nullptr;
     vaccine_count = 0;
 }
 
 Pet::~Pet()
 {
-    delete [] name;
-    delete [] specie;
-    delete [] veterinary_code;
+    delete[] name;
+    delete[] specie;
+    delete[] veterinary_id;
 }
 
-int Pet::get_owner_dni() const { return this->owner_dni; }
+int Pet::get_owner_dni() const { return owner_dni; }
+void Pet::set_owner_dni(const int owner_dni) { this->owner_dni = owner_dni; }
 
-void Pet::set_owner_dni(const int owner_dnI) { this->owner_dni = owner_dnI; }
-
-void Pet::get_name(char* namE) const
+void Pet::get_name(char* name) const
 {
     if (this->name == nullptr)
     {
-        namE[0] = '\0';
+        name[0] = '\0';
         return;
     }
-    std::strcpy(namE, this->name);
+    std::strcpy(name, this->name);
 }
 
-void Pet::set_name(const char* namE)
+void Pet::set_name(char* const name)
 {
     if (this->name != nullptr) delete[] this->name;
-    this->name = new char[std::strlen(namE) + 1];
-    std::strcpy(this->name, namE);
+    this->name = Utils::allocate_string(name);
 }
 
-void Pet::get_specie(char* speciE) const
+void Pet::get_specie(char* specie) const
 {
     if (this->specie == nullptr)
     {
-        speciE[0] = '\0';
+        specie[0] = '\0';
         return;
     }
-    std::strcpy(speciE, this->specie);
+    std::strcpy(specie, this->specie);
 }
 
-void Pet::set_specie(const char* speciE)
+void Pet::set_specie(char* const specie)
 {
     if (this->specie != nullptr) delete[] this->specie;
-    this->specie = new char[std::strlen(speciE) + 1];
-    std::strcpy(this->specie, speciE);
+    this->specie = Utils::allocate_string(specie);
 }
 
-int Pet::get_age() const { return this->age; }
+int Pet::get_age() const { return age; }
+void Pet::set_age(const int age) { this->age = age; }
 
-void Pet::set_age(const int agE) { this->age = agE; }
+double Pet::get_weight() const { return weight; }
+void Pet::set_weight(const double weight) { this->weight = weight; }
 
-double Pet::get_weight() const { return this->weight; }
-
-void Pet::set_weight(const double weighT) { this->weight = weighT; }
-
-void Pet::get_veterinary_code(char* veterinaryCode) const
+void Pet::get_veterinary_id(char* id) const
 {
-    if (this->veterinary_code == nullptr)
+    if (this->veterinary_id == nullptr)
     {
-        veterinaryCode[0] = '\0';
+        id[0] = '\0';
         return;
     }
-    std::strcpy(veterinaryCode, this->veterinary_code);
+    std::strcpy(id, this->veterinary_id);
 }
 
-void Pet::set_veterinary_code(const char* veterinaryCode)
+void Pet::set_veterinary_id(char* const veterinary_id)
 {
-    if (this->veterinary_code != nullptr) delete[] this->veterinary_code;
-    this->veterinary_code = new char[std::strlen(veterinaryCode) + 1];
-    std::strcpy(this->veterinary_code, veterinaryCode);
+    if (this->veterinary_id != nullptr) delete[] this->veterinary_id;
+    this->veterinary_id = Utils::allocate_string(veterinary_id);
 }
 
-int Pet::get_vaccine_count() const { return this->vaccine_count; }
+int Pet::get_vaccine_count() const { return vaccine_count; }
+void Pet::set_vaccine_count(const int vaccine_count) { this->vaccine_count = vaccine_count; }
 
-void Pet::set_vaccine_count(const int vaccineCount) { this->vaccine_count = vaccineCount; }
-
-void Pet::read_pet(std::istream& input)
+void Pet::read_pet(std::ifstream& input)
 {
-    char aux_name[TEXT_LENGTH], aux_specie[TEXT_LENGTH], aux_veterinary_code[TEXT_LENGTH];
-    input >> owner_dni;
+    owner_dni = Utils::read_int(input);
     if (input.eof()) return;
-    input.get();
-    input.getline(aux_name, TEXT_LENGTH, ',');
-    input.getline(aux_specie, TEXT_LENGTH, ',');
-    input >> age;
-    input.get();
-    input >> weight;
-    input.get();
-    input.getline(aux_veterinary_code, TEXT_LENGTH, '\n');
-    set_name(aux_name);
-    set_specie(aux_specie);
-    set_veterinary_code(aux_veterinary_code);
+    name = Utils::read_string(input);
+    specie = Utils::read_string(input);
+    age = Utils::read_int(input);
+    weight = Utils::read_double(input);
+    veterinary_id = Utils::read_string(input, '\n');
 }
+
 
 Pet& Pet::operator =(const class Pet& other)
 {
     if (this == &other) return *this;
-    char aux_name[TEXT_LENGTH], aux_specie[TEXT_LENGTH], aux_veterinary_code[TEXT_LENGTH];
-    other.get_name(aux_name);
-    other.get_specie(aux_specie);
-    other.get_veterinary_code(aux_veterinary_code);
-    set_name(aux_name);
-    set_specie(aux_specie);
-    set_veterinary_code(aux_veterinary_code);
     this->owner_dni = other.get_owner_dni();
+    set_name(other.name);
+    set_specie(other.specie);
     this->age = other.get_age();
     this->weight = other.get_weight();
-    // veccine list =
-    for (int i = 0; i < other.get_vaccine_count(); i++)
-        this->vaccine_list[i] = other.vaccine_list[i];
+    set_veterinary_id(other.veterinary_id);
+    for (int i = 0; i < other.vaccine_count; i++)
+        this->vaccine_list[i] = other.vaccine_list[i]; // tengo que crear esta sobrecarga
     this->vaccine_count = other.get_vaccine_count();
     return *this;
 }
 
-void Pet::operator +=(const class AppliedVaccine& applied_vaccine)
+void Pet::operator +=(const class AppliedVaccine& vaccine)
 {
-    vaccine_list[vaccine_count] = applied_vaccine;
+    vaccine_list[vaccine_count] = vaccine;
     vaccine_count++;
 }
 
-void operator >>(std::istream& input, Pet& pet)
+bool Pet::operator ~() const
+{
+    for (int i = 0; i < vaccine_count; i++)
+    {
+        for (int j = i + 1; j < vaccine_count; j++)
+            if (vaccine_list[i] == vaccine_list[j]) return true;
+    }
+}
+
+void operator >>(std::ifstream& input, class Pet& pet)
 {
     pet.read_pet(input);
+}
+
+void operator <<(std::ofstream& output,const class Pet& pet)
+{
+    output << std::fixed << std::setprecision(2);
+    char name[TEXT_LENGTH], specie[TEXT_LENGTH], veterinary_id[TEXT_LENGTH];
+    pet.get_name(name);
+    output << "Mascota :" << name << "(" << specie << ", ";
+    output << pet.get_age() << " anios, " << pet.get_weight() << " kg" << ")";
 }

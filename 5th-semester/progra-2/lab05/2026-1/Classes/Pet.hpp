@@ -10,55 +10,58 @@
 class Pet
 {
 public:
+
     Pet();
 
     ~Pet();
 
     int get_owner_dni() const;
 
-    void set_owner_dni(const int);
+    void set_owner_dni(const int owner_dni);
 
-    void get_name(char*) const;
+    void get_name(char* ) const;
 
-    void set_name(const char*);
+    void set_name(char* const name);
 
-    void get_specie(char*) const;
+    void get_specie(char* ) const;
 
-    void set_specie(const char*);
+    void set_specie(char* const specie);
 
     int get_age() const;
 
-    void set_age(const int);
+    void set_age(const int age);
 
     double get_weight() const;
 
-    void set_weight(const double);
+    void set_weight(const double weight);
 
-    void get_veterinary_code(char*) const;
+    void get_veterinary_id(char* ) const;
 
-    void set_veterinary_code(const char*);
+    void set_veterinary_id(char* const veterinary_id);
 
     int get_vaccine_count() const;
 
-    void set_vaccine_count(const int);
+    void set_vaccine_count(const int vaccine_count);
 
-    void read_pet(std::istream&);
+    void read_pet(std::ifstream& );
 
-    Pet& operator =(const class Pet&);
+    Pet& operator = (const class Pet& );
 
-    void operator +=(const class AppliedVaccine&);
+    void operator += (const class AppliedVaccine& );
 
+    bool operator ~() const;
 private:
     int owner_dni;
     char* name;
     char* specie;
     int age;
     double weight;
-    char* veterinary_code;
-    AppliedVaccine vaccine_list[20];
+    char* veterinary_id;
+    class AppliedVaccine vaccine_list[20];
     int vaccine_count;
 };
 
-void operator >>(std::istream&, Pet&);
+void operator >> (std::ifstream& , class Pet& );
 
+void operator << (std::ofstream& ,const class Pet& );
 #endif //INC_2026_1_PETS_HPP

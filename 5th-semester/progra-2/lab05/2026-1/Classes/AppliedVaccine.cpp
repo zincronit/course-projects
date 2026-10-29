@@ -9,76 +9,95 @@ AppliedVaccine::AppliedVaccine()
     name = nullptr;
     date = 0;
     dose = 0.0;
-    veterinary_license = nullptr;
+    veterinary_id = nullptr;
 }
 
 AppliedVaccine::~AppliedVaccine()
 {
-    delete [] name;
-    delete [] veterinary_license;
+    delete[] name;
+    delete[] veterinary_id;
 }
 
-void AppliedVaccine::get_name(char* namE) const
+void AppliedVaccine::get_name(char* name) const
 {
-    if (this->name == nullptr) namE[0] = '\0';
-    else std::strcpy(namE, this->name);
+    if (this->name == nullptr)
+    {
+        name[0] = '\0';
+        return;
+    }
+    std::strcpy(name, this->name);
 }
 
-void AppliedVaccine::set_name(const char* namE)
+void AppliedVaccine::set_name(char* const name)
 {
-    if (this->name != nullptr) delete [] name;
-    this->name = new char[std::strlen(namE) + 1];
-    std::strcpy(this->name, namE);
+    if (this->name != nullptr) delete[] this->name;
+    this->name = Utils::allocate_string(name);
 }
 
-int AppliedVaccine::get_date() const { return this->date; }
+int AppliedVaccine::get_date() const { return date; }
 
-void AppliedVaccine::set_date(const int datE) { this->date = datE; }
+void AppliedVaccine::set_date(const int date) { this->date = date; }
 
-double AppliedVaccine::get_dose() const { return this->dose; }
+double AppliedVaccine::get_dose() const { return dose; }
 
-void AppliedVaccine::set_dose(const double dosE) { this->dose = dosE; }
+void AppliedVaccine::set_dose(const double dose) { this->dose = dose; }
 
-void AppliedVaccine::get_veterinary_license(char* veterinaryLicense) const
+void AppliedVaccine::get_veterinary_id(char* id) const
 {
-    if (this->veterinary_license == nullptr) veterinaryLicense[0] = '\0';
-    else std::strcpy(veterinaryLicense, this->veterinary_license);
+    if (this->veterinary_id == nullptr)
+    {
+        id[0] = '\0';
+        return;
+    }
+    std::strcpy(id, this->veterinary_id);
 }
 
-void AppliedVaccine::set_veterinary_license(const char* veterinaryLicense)
+void AppliedVaccine::set_veterinary_id(char* const veterinary_id)
 {
-    if (this->veterinary_license != nullptr) delete [] veterinary_license;
-    this->veterinary_license = new char[std::strlen(veterinaryLicense) + 1];
-    std::strcpy(this->veterinary_license, veterinaryLicense);
+    if (this->veterinary_id != nullptr) delete[] this->veterinary_id;
+    this->veterinary_id = Utils::allocate_string(veterinary_id);
 }
 
-void AppliedVaccine::read_applied_vaccine(std::istream& input)
+void AppliedVaccine::read_applied_vaccine(std::ifstream& input)
 {
-    char aux_name[TEXT_LENGTH], aux_veterinary_license[TEXT_LENGTH];
-    input.getline(aux_name, TEXT_LENGTH, ',');
-    set_name(aux_name);
-    input >> date;
-    input.get();
-    input >> dose;
-    input.get();
-    input.getline(aux_veterinary_license, TEXT_LENGTH, '\n');
-    set_veterinary_license(aux_veterinary_license);
+    // input.ignore(TEXT_LENGTH, ',');
+    // input.ignore(TEXT_LENGTH, ',');
+    name = Utils::read_string(input);
+    date = Utils::read_int(input);
+    dose = Utils::read_double(input);
+    veterinary_id = Utils::read_string(input, '\n');
 }
 
 AppliedVaccine& AppliedVaccine::operator =(const class AppliedVaccine& other)
 {
     if (this == &other) return *this;
-    char aux_name[TEXT_LENGTH], aux_veterinary_license[TEXT_LENGTH];
-    other.get_name(aux_name);
-    other.get_veterinary_license(aux_veterinary_license);
-    set_name(aux_name);
-    set_veterinary_license(aux_veterinary_license);
-    this->date = other.get_date();
-    this->dose = other.get_dose();
+    set_name(other.name);
+    set_date(other.date);
+    set_dose(other.dose);
+    set_veterinary_id(other.veterinary_id);
     return *this;
 }
 
-void operator >>(std::istream& input, AppliedVaccine& applied_vaccine)
+bool AppliedVaccine::operator ==(const class AppliedVaccine& other) const
+{
+    if (std::strcmp(name, other.name) != 0) return false;
+    if (date != other.date) return false;
+    if (dose != other.dose) return false;
+    if (std::strcmp(veterinary_id, other.veterinary_id) != 0) return false;
+    return true;
+}
+
+void operator >>(std::ifstream& input, class AppliedVaccine& applied_vaccine)
 {
     applied_vaccine.read_applied_vaccine(input);
+}
+
+void operator >>(std::ofstream& output,const class AppliedVaccine& applied_vaccine)
+{
+    char name[TEXT_LENGTH] , veterinary_id[TEXT_LENGTH];
+    applied_vaccine.get_name(name);
+    applied_vaccine.get_veterinary_id(veterinary_id);
+    output << name << " : " << applied_vaccine.get_date() << " (";
+    output << applied_vaccine.get_dose() << "ml, ";
+    output << veterinary_id << ")";
 }
