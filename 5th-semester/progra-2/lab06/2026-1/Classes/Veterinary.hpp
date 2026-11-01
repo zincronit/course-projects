@@ -24,7 +24,11 @@ public:
 
     void set_checkup_capacity(const int checkup_capacity);
 
-    void load_apointments(const char* );
+    void load_appointments(const char* );
+
+    void append_capacity_checkup();
+
+    void show_appointments(const char* );
 private:
     class Checkup* checkup_list;
     class Surgery surgery_list[50];

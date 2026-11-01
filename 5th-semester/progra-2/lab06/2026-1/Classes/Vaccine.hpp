@@ -22,6 +22,9 @@ public:
 
     void set_month(const int month);
 
+    void read_vaccine(std::ifstream& );
+
+    void print_vaccine(std::ofstream& );
 private:
     int month;
     int dose;

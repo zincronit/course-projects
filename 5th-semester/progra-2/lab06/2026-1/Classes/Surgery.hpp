@@ -25,6 +25,9 @@ public:
 
     void set_cost(const double cost);
 
+    void read_surgery(std::ifstream& );
+
+    void print_surgery(std::ofstream& ) const;
 private:
     bool general_anesthesia;
     int doctor_count;

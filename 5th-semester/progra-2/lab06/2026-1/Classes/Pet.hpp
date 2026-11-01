@@ -28,6 +28,10 @@ public:
     void set_type(const char type);
 
     std::string get_breed() const;
+
+    void read_pet(std::ifstream& );
+
+    void print_pet(std::ofstream& ) const;
 private:
     int code;
     std::string name;

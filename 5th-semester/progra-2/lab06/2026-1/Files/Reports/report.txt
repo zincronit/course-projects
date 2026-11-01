@@ -1,0 +1,42 @@
+        20250707              11Labrador        Luna            1222            20.00
+20260808        10              Bulldog         Rocky           5689            20.00
+20261111        13              PastorAleman    Max             2345            20.00
+20260808        10              Persa           Nala            5689            15.00
+20252020        13              Americano       Dali            1222            15.00
+20261010        9               Ninfa           Fenix           8921            60.00
+20250707        9               Canario         Axl Rose        8921            60.00
+20252020        10              Canario         Debbie Harry    3572            60.00
+20250303        11              Agapornis       Pimpona         9331            60.00
+20261717        15              Canario         Axl Rose        3572            60.00
+20251717        14              Labrador        Luna            5689            20.00
+20251717        9               Canario         Axl Rose        3572            60.00
+20252222        9               Canario         Debbie Harry    9331            60.00
+20251212        9               Agapornis       Pimpona         9331            60.00
+20260202        11              Bulldog         Rocky           1029            20.00
+20261111        15              PastorAleman    Max             4445            20.00
+20261818        14              Persa           Nala            6666            20.00
+20252020        11              Americano       Dali            9999            20.00
+20262020        10              Ninfa           Fenix           3572            60.00
+20262121        9               Ninfa           Fenix           3572            60.00
+20252121        15              Agapornis       Pimpona         8921            60.00
+20262020        16              Americano       Dali            9999            15.00
+
+20260808        10              Labrador        Luna            1               12
+20250303        12              Bulldog         Rocky           2               6
+20260909        13              Comun           Simba           3               3
+20261414        9               GoldenRetriever Goku            1               12
+20260808        13              Canario         Slash           3               12
+20261010        13              Canario         Jon Bon Jovi    2               12
+20261818        13              Canario         Slash           1               12
+20261414        12              Canario         Jon Bon Jovi    1               12
+20261818        10              Labrador        Luna            3               1
+20251313        12              Bulldog         Rocky           1               1
+20261919        12              Comun           Simba           3               12
+20261414        13              GoldenRetriever Goku            2               12
+20261515        12              Siberiano       LuisXV          3               12
+
+20260909        11              Beagle          Toby            General         1
+20262525        10              Siberiano       LuisXV          Parcial         2
+20261212        13              Americano       Dali            General         1
+20261919        11              Beagle          Toby            Parcial         2
+

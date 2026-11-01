@@ -9,6 +9,18 @@
 class Appointment
 {
 public:
+    int get_date() const;
+
+    void set_date(const int date);
+
+    int get_hour() const;
+
+    void set_hour(const int hour);
+
+    Appointment();
+    ~Appointment();
+    void read_appointment(std::ifstream& );
+    void print_appointment(std::ofstream& ) const;
 private:
     int date;
     int hour;
