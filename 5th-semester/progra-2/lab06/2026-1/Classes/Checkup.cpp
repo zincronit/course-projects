@@ -16,12 +16,14 @@ void Checkup::set_cost(const double cost) { this->cost = cost; }
 int Checkup::get_doctor_id() const { return doctor_id; }
 void Checkup::set_doctor_id(const int doctor_id) { this->doctor_id = doctor_id; }
 
-void Checkup::read_checkup(std::ifstream& input)
+
+void Checkup::read_appointment(std::ifstream& input)
 {
-    read_appointment(input);
+    Appointment::read_appointment(input);
     doctor_id = Utils::read_int(input);
     cost = Utils::read_double(input);
 }
+
 
 void Checkup::print_checkup(std::ofstream& output) const
 {

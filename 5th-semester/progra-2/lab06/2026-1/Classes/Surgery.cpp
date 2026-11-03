@@ -19,19 +19,19 @@ void Surgery::set_doctor_count(const int doctor_count) { this->doctor_count = do
 double Surgery::get_cost() const { return cost; }
 void Surgery::set_cost(const double cost) { this->cost = cost; }
 
-void Surgery::read_surgery(std::ifstream& input)
+void Surgery::read_appointment(std::ifstream& input)
 {
-    read_appointment(input);
+    Appointment::read_appointment(input);
     cost = Utils::read_double(input);
     input >> general_anesthesia;
     input.ignore();
     doctor_count = Utils::read_int(input);
 }
 
-void Surgery::print_surgery(std::ofstream& output) const
+void Surgery::print_appointment(std::ofstream& output) const
 {
     int width = LINE_WIDTH / 6;
-    print_appointment(output);
+    Appointment::print_appointment(output);
     general_anesthesia
         ? Utils::print_text(output, "Parcial", width)
         : Utils::print_text(output, "General", width);

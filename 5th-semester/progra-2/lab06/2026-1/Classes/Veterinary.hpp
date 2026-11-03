@@ -28,7 +28,7 @@ public:
 
     void append_capacity_checkup();
 
-    void show_appointments(const char* );
+    void show_appointments(const char* ) const;
 private:
     class Checkup* checkup_list;
     class Surgery surgery_list[50];

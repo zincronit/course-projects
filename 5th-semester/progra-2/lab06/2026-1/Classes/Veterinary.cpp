@@ -37,15 +37,15 @@ void Veterinary::load_appointments(const char* filepath)
         if (type == 'C')
         {
             class Checkup checkup;
-            checkup.read_checkup(input);
+            checkup.read_appointment(input);
             if (checkup_count >= checkup_capacity - 1)
                 append_capacity_checkup();
             checkup_list[checkup_count++] = checkup;
         }
         else if (type == 'O')
-            surgery_list[surgery_count++].read_surgery(input);
+            surgery_list[surgery_count++].read_appointment(input);
         else
-            vaccine_list[vaccine_count++].read_vaccine(input);
+            vaccine_list[vaccine_count++].read_appointment(input);
     }
     input.close();
 }
@@ -65,7 +65,7 @@ void Veterinary::append_capacity_checkup()
     checkup_list = aux;
 }
 
-void Veterinary::show_appointments(const char* filepath)
+void Veterinary::show_appointments(const char* filepath) const
 {
     std::ofstream output;
     Utils::open_output_file(output, filepath);
@@ -73,10 +73,10 @@ void Veterinary::show_appointments(const char* filepath)
         checkup_list[i].print_checkup(output);
     output << std::endl;
     for (int i = 0 ; vaccine_list[i].get_month() != 0 ; i++)
-        vaccine_list[i].print_vaccine(output);
+        vaccine_list[i].print_appointment(output);
     output << std::endl;
     for (int i = 0 ; surgery_list[i].get_doctor_count() != 0 ; i++)
-        surgery_list[i].print_surgery(output);
+        surgery_list[i].print_appointment(output);
     output << std::endl;
     output.close();
 }

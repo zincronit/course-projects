@@ -21,7 +21,7 @@ public:
 
     void set_doctor_id(const int doctor_id);
 
-    void read_checkup(std::ifstream& );
+    void read_appointment(std::ifstream& input);
 
     void print_checkup(std::ofstream& ) const;
 private:

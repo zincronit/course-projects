@@ -17,17 +17,17 @@ int Vaccine::get_month() const { return month; }
 void Vaccine::set_month(const int month) { this->month = month; }
 
 
-void Vaccine::read_vaccine(std::ifstream& input)
+void Vaccine::read_appointment(std::ifstream& input)
 {
-    read_appointment(input);
+    Appointment::read_appointment(input);
     dose = Utils::read_int(input);
     month = Utils::read_int(input);
 }
 
-void Vaccine::print_vaccine(std::ofstream& output)
+void Vaccine::print_appointment(std::ofstream& output) const
 {
     int width = LINE_WIDTH / 6;
-    print_appointment(output);
+    Appointment::print_appointment(output);
     output << std::setw(width) << dose;
     output << month << std::endl;
 }

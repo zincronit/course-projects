@@ -56,27 +56,92 @@ int get_unique(int* array, int left, int right)
 
     int mid = (left + right) / 2;
 
-    if (mid % 2 == 0 )
+    if (mid % 2 == 0)
     {
-        if ( array[mid] == array[mid + 1])
+        if (array[mid] == array[mid + 1])
             return get_unique(array, mid + 2, right);
         else
-            return get_unique(array, left , mid);
-    }
-    else
+            return get_unique(array, left, mid);
+    } else
     {
-        if ( array[mid] == array[mid - 1])
+        if (array[mid] == array[mid - 1])
             return get_unique(array, mid + 1, right);
         else
             return get_unique(array, left, mid);
     }
 }
 
+int count_ceros(int* array, int left, int right)
+{
+    if (left > right) return 0;
+    if (left == right)
+        return array[left] == 0 ? 1 : 0;
+    int mid = (left + right) / 2;
+    if (array[mid + 1] == 0)
+        return right - mid + count_ceros(array, left, mid);
+    else
+        return count_ceros(array, mid + 1, right);
+}
+
+int find_min_value(int* array, int left, int right)
+{
+    if (left == right or array[left] < array[right])
+        return array[left];
+    int mid = (left + right) / 2;
+    if (array[left] < array[mid])
+        return find_min_value(array, mid + 1, right);
+    else
+        return find_min_value(array, left, mid);
+}
+
+int get_middle_sum(int* array, int left, int mid, int right)
+{
+    int max_sum1 = INT_MIN;
+    int max_sum2 = INT_MIN;
+    int sum1 = 0, sum2 = 0;
+    int sum3 = 0;
+    for (int i = mid; i >= left; i--)
+    {
+        sum1 += array[i];
+        max_sum1 = std::max(max_sum1, sum1);
+    }
+    for (int j = mid + 1; j <= right; j++)
+    {
+        sum2 += array[j];
+        max_sum2 = std::max(max_sum2, sum2);
+    }
+    return max_sum1 + max_sum2;
+    // return std::max(std::max(max_sum1, max_sum2), sum3);
+}
+
+int get_max_sum(int* array, int left, int right)
+{
+    if (left == right) return array[left];
+    int mid = (left + right) / 2;
+
+    int sum1 = get_max_sum(array, left, mid);
+    int sum2 = get_max_sum(array, mid + 1, right);
+    int sum3 = get_middle_sum(array, left, mid, right);
+    return std::max(std::max(sum1, sum2), sum3);
+}
+
+int get_max_value(int* array , int left , int right)
+{
+    if (left == right)
+        return array[left];
+    int mid = (left + right) / 2;
+    if (array[mid] < array[mid + 1] )
+        return get_max_value(array, mid + 1, right);
+    else
+        return get_max_value(array, left, mid);
+}
+
 int main()
 {
-    int values[] = {45, 24, 19, 4, 5, 48, 45, 19, 57, 15, 23, 32, 12, 11, 40};
-    int count = sizeof(values) / sizeof(values[0]);
-
+    // int values[] = {45, 24, 19, 4, 5, 48, 45, 19, 57, 15, 23, 32, 12, 11, 40};
+    // int count = sizeof(values) / sizeof(values[0]);
+    //
+    // BINARY SEARHC :
     // int array[90]{};
     // int size = sizeof(array) / sizeof(array[0]);
     // for (int i = 0; i < size; i++)
@@ -87,6 +152,7 @@ int main()
     // std::cout << std::endl;
     // std::cout << binary_search(array, 0, size - 1, 20) << std::endl;
     //
+    //MERGE SORT
     // for (int i = 0; i < count; i++)
     //     std::cout << values[i] << ", ";
     // merge_sort(values, 0 , count -1);
@@ -94,8 +160,29 @@ int main()
     // std::cout << std::endl;
     // for (int i = 0; i < count; i++)
     //     std::cout << values[i] << ", ";
-
-    int array[] = {1, 1, 3, 3, 4, 5, 5, 7, 7, 8, 8};
-    std::cout << get_unique(array, 0, count -1) << std::endl;
+    //
+    // EXERCISE 1:
+    // int array[] = {1, 1, 3, 3, 4, 5, 5, 7, 7, 8, 8};
+    // std::cout << get_unique(array, 0, count -1) << std::endl;
+    //
+    // EXERCISE 2:
+    // int array[] = {1 , 1 , 1 };
+    // int size = sizeof(array) / sizeof(array[0]);
+    // std::cout << count_ceros(array, 0 , size - 1) << std::endl;
+    //
+    // EXERCISE 3:
+    // int array[] = {5, 6, -1, 0, 1, 2, 3, 4};
+    // int size = sizeof(array) / sizeof(array[0]);
+    // std::cout << find_min_value(array, 0, size - 1) << std::endl;
+    //
+    // EXERCISE 4:
+    // int array[] = {-2, -5, 6, -2, -3, 1, 5, -6};
+    // int size = sizeof(array) / sizeof(array[0]);
+    // std::cout << get_max_sum(array, 0 , size -1 ) << std::endl;
+    //
+    // EXERCISE 5:
+    int array[] = {8, 10, 20, 80, 100, 200, 400, 500, 3, 2, 1};
+    int size = sizeof(array) / sizeof(array[0]);
+    std::cout << get_max_value(array, 0 , size - 1) << std::endl;
     return 0;
 }
