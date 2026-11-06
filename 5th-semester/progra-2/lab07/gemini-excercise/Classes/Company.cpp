@@ -37,11 +37,8 @@ void Company::load_sales(const char* filepath)
         input.ignore();
         if (type == 'T')
         {
-            // class StoreSale store_sale;
             if (num_store >= cap_store - 1)
                 append_capacity_store();
-            // store_sale.read_sale(input);
-            // store_sales[num_store++] = store_sale;
             store_sales[num_store++].read_sale(input);
         }
         else if (type == 'O')

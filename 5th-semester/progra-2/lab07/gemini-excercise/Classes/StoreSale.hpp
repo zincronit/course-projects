@@ -6,12 +6,15 @@
 #define GEMINI_EXCERCISE_STORESALE_HPP
 
 #include "Sale.hpp"
-class StoreSale: public Sale
+
+class StoreSale : public Sale
 {
 public:
     StoreSale();
 
-    virtual ~StoreSale() = default;
+    StoreSale(const class StoreSale&);
+
+    virtual ~StoreSale();
 
     int get_cashier_code() const;
 
@@ -21,9 +24,12 @@ public:
 
     void set_local_discount(const double local_discount);
 
-    void read_sale(std::ifstream& );
+    void read_sale(std::ifstream&);
 
-    void print_sale(std::ofstream& ) const;
+    void print_sale(std::ofstream&) const;
+
+    StoreSale& operator=(const class StoreSale&);
+
 private:
     int cashier_code;
     double local_discount;

@@ -11,7 +11,9 @@ class OnlineSale: public Sale
 public:
     OnlineSale();
 
-    virtual ~OnlineSale() = default;
+    OnlineSale(const OnlineSale&);
+
+    virtual ~OnlineSale();
 
     std::string get_shipping_city() const;
 
@@ -24,6 +26,8 @@ public:
     void read_sale(std::ifstream& );
 
     void print_sale(std::ofstream& ) const;
+
+    OnlineSale& operator=(const OnlineSale&);
 private:
     std::string shipping_city;
     double shipping_cost;

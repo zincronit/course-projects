@@ -11,6 +11,8 @@ class Sale
 public:
     Sale();
 
+    Sale(const class Sale& );
+
     virtual ~Sale() = default;
 
     std::string get_code() const;
@@ -32,6 +34,8 @@ public:
     void read_sale(std::ifstream& );
 
     void print_sale(std::ofstream& ) const;
+
+    Sale& operator = (const class Sale& );
 private:
     std::string code;
     std::string date;

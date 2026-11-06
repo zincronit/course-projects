@@ -1,4 +1,4 @@
-//
+ //
 // Created by zincronit on 11/5/26.
 //
 
@@ -10,6 +10,11 @@ Sale::Sale()
     date = "";
     client_id = "";
     base_amount = 0.0;
+}
+
+Sale::Sale(const class Sale& other)
+{
+    *this = other;
 }
 
 std::string Sale::get_code() const { return code; }
@@ -34,4 +39,14 @@ void Sale::print_sale(std::ofstream& output) const
     Utils::print_text(output, code , width);
     Utils::print_text(output, date , width);
     Utils::print_text(output, client_id , width);
+}
+
+Sale& Sale::operator = (const class Sale& other)
+{
+    if (this == &other) return *this;
+    code = other.code;
+    date = other.date;
+    client_id = other.client_id;
+    base_amount = other.base_amount;
+    return *this;
 }

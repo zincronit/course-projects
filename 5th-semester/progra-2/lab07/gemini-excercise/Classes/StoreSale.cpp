@@ -3,15 +3,24 @@
 //
 
 #include "StoreSale.hpp"
+
 StoreSale::StoreSale()
 {
     cashier_code = 0;
     local_discount = 0.0;
 }
+
+StoreSale::StoreSale(const class StoreSale& other)
+{
+    *this = other;
+}
+
+StoreSale::~StoreSale() {}
 int StoreSale::get_cashier_code() const { return cashier_code; }
 void StoreSale::set_cashier_code(const int cashier_code) { this->cashier_code = cashier_code; }
 double StoreSale::get_local_discount() const { return local_discount; }
 void StoreSale::set_local_discount(const double local_discount) { this->local_discount = local_discount; }
+
 void StoreSale::read_sale(std::ifstream& input)
 {
     Sale::read_sale(input);
@@ -25,4 +34,13 @@ void StoreSale::print_sale(std::ofstream& output) const
     output << std::fixed << std::setprecision(2);
     output << Sale::get_base_amount() - local_discount;
     output << std::endl;
+}
+
+StoreSale& StoreSale::operator=(const class StoreSale& other)
+{
+    if (this == &other) return *this;
+    Sale::operator=(other);
+    cashier_code = other.cashier_code;
+    local_discount = other.local_discount;
+    return *this;
 }

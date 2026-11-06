@@ -8,6 +8,9 @@ Wholesale::Wholesale()
     tax_id = "";
     volume_discount = 0.0;
 }
+
+Wholesale::Wholesale(const Wholesale& other) {*this = other;}
+Wholesale::~Wholesale(){}
 std::string Wholesale::get_tax_id() const { return tax_id; }
 void Wholesale::set_tax_id(const std::string& tax_id) { this->tax_id = tax_id; }
 double Wholesale::get_volume_discount() const { return volume_discount; }
@@ -25,4 +28,13 @@ void Wholesale::print_sale(std::ofstream& output) const
     output << std::fixed << std::setprecision(2);
     output << Sale::get_base_amount() - (Sale::get_base_amount() *volume_discount) / 100;
     output << std::endl;
+}
+
+Wholesale& Wholesale::operator=(const Wholesale& other)
+{
+    if (this == &other) return *this;
+    Sale::operator=(other);
+    tax_id = other.tax_id;
+    volume_discount = other.volume_discount;
+    return *this;
 }

@@ -11,7 +11,9 @@ class Wholesale : public Sale
 public:
     Wholesale();
 
-    virtual ~Wholesale() = default;
+    Wholesale(const Wholesale&);
+
+    virtual ~Wholesale() ;
 
     std::string get_tax_id() const;
 
@@ -24,6 +26,8 @@ public:
     void read_sale(std::ifstream& );
 
     void print_sale(std::ofstream& ) const;
+
+    Wholesale& operator=(const Wholesale&);
 private:
     std::string tax_id;
     double volume_discount;
