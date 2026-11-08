@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 
-#define LINE_WIDTH 100
+#define LINE_WIDTH 170
 #define COLUMNS 6
 #define INCREASE 5
 
@@ -22,7 +22,7 @@ public:
     static int read_int(std::ifstream& );
     static double read_double(std::ifstream& );
     static void print_text(std::ofstream& , const std::string& , int , bool should_align_right = false);
-    static void print_line(std::ofstream & , int width = LINE_WIDTH , char character = '=');
+    static void print_line(std::ofstream & , char character = '=', int width = LINE_WIDTH );
     static std::string generate_filepath(const std::string& );
 
 };

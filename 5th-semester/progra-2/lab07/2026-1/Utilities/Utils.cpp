@@ -46,9 +46,10 @@ void Utils::print_text(std::ofstream& output, const std::string& text, int width
     output << std::setw(width) << text;
 }
 
-void Utils::print_line(std::ofstream& output, int width, char character)
+void Utils::print_line(std::ofstream& output, char character, int width)
 {
-    for (int i = 0; i < width; i++) output.put(character);
+    for (int i = 0; i < width - 50; i++) output.put(character);
+    output << std::endl;
 }
 
 std::string Utils::generate_filepath(const std::string& date)
@@ -56,6 +57,7 @@ std::string Utils::generate_filepath(const std::string& date)
     std::string base_path = "../Files/Data/";
     for (int i = 0 ; i < date.length(); i++)
         date[i] == '-' ? base_path += '/' : base_path += date[i];
+    base_path += '/';
     return base_path;
 }
 

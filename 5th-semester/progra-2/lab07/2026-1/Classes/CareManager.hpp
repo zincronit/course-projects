@@ -29,11 +29,13 @@ public:
 
     void append_attention(class Attention* );
 
-    class Attention* allocate_attention_memory(char );
+    class Attention* allocate_attention_memory(const char );
 
     void load_attentions(const std::string& ,const int  );
 
     void process_day(const std::string& );
+
+    void generate_report(const std::string& ) const ;
 private:
     class Attention** attentions;
     int count;

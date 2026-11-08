@@ -30,7 +30,7 @@ void Urgency::set_requires_xray(const bool requires_xray) { this->requires_xray 
 void Urgency::read(std::ifstream& input, const int hour)
 {
     Attention::read(input, hour);
-    std::getline(input, injury_zone);
+    std::getline(input, injury_zone,',');
     input >> requires_xray;
     input.ignore();
 }
@@ -42,6 +42,7 @@ void Urgency::print(std::ofstream& output) const
     Utils::print_text(output, injury_zone, width);
     output << std::setw(width);
     requires_xray ? output << "SI" : output << "NO";
+    output << std::endl;
 }
 
 int Urgency::get_priority() { return 2; }

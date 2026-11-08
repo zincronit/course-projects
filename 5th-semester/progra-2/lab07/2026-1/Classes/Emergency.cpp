@@ -40,7 +40,7 @@ void Emergency::print(std::ofstream& output) const
     int width = LINE_WIDTH/COLUMNS;
     output << std::setw(width);
     requires_rcp ? output << "SI" : output << "NO";
-    output << std::setw(width) << minutes_without_pulse;
+    output << std::setw(width) << minutes_without_pulse<< std::endl;
 }
 
 int Emergency::get_priority(){return 1;}

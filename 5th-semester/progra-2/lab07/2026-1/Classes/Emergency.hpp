@@ -12,9 +12,9 @@ class Emergency : public Attention
 public:
     Emergency();
 
-    Emergency& operator= (const class Emergency& );
+    Emergency& operator=(const class Emergency&);
 
-    virtual ~Emergency() =default;
+    virtual ~Emergency() = default;
 
     bool is_requires_rcp() const;
 
@@ -24,9 +24,12 @@ public:
 
     void set_minutes_without_pulse(const int minutes_without_pulse);
 
-    void read(std::ifstream&, const int ) ;
-    void print(std::ofstream& ) const;
+    void read(std::ifstream&, const int);
+
+    void print(std::ofstream&) const;
+
     int get_priority();
+
 private:
     bool requires_rcp;
     int minutes_without_pulse;

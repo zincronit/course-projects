@@ -41,6 +41,7 @@ void NotUrgent::print(std::ofstream& output) const
     Attention::print(output);
     Utils::print_text(output, specialty, LINE_WIDTH / COLUMNS);
     is_scheduled_appointment ? output << "SI" : output << "NO";
+    output << std::endl;
 }
 
 int NotUrgent::get_priority() { return 3; }
