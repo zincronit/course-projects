@@ -43,24 +43,52 @@ void merge_sort(int* array, int left, int right)
 
 void print_matrix(int matrix[][N])
 {
-    for (int i = 0 ; i < N ; i++)
+    for (int i = 0; i < N; i++)
     {
-        for (int j = 0 ; j < N ; j++)
+        for (int j = 0; j < N; j++)
             std::cout << matrix[i][j] << ", ";
         std::cout << std::endl;
     }
     std::cout << std::endl;
 }
 
+int unique_birds(int* array, int left, int right)
+{
+    if (left > right) return -1;
+    if (left == right) return array[left];
+    int mid = (left + right) / 2;
+    if (mid % 2 == 0)
+    {
+        if (array[mid] == array[mid + 1])
+            return unique_birds(array, mid + 2, right);
+        return unique_birds(array, left, mid);
+    } else
+    {
+        if (array[mid] == array[mid - 1])
+            return unique_birds(array, mid + 1, right);
+        return unique_birds(array, left, mid);
+    }
+}
+
 void find_birds(int docker[][N])
 {
-    print_matrix(docker);
+    // print_matrix(docker);
     for (int i = 0; i < N; i++)
         merge_sort(docker[i], 0, N - 1);
 
-    
+    // print_matrix(docker);
 
-    print_matrix(docker);
+    for (int i = 0; i < N; i++)
+    {
+        if (docker[i][N -1] != INT_MAX)
+        {
+            std::cout << "No unique birds found!" << std::endl;
+            continue;
+        }
+        int bird = unique_birds(docker[i], 0, N - 1);
+        std::cout << bird << std::endl;
+    }
+
 }
 
 int main()
