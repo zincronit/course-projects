@@ -1,0 +1,28 @@
+                                                                                  REPORTE DE ATENCIONES PRIORITARIAS
+                                                                                    FECHA: 23-01-1990   HORA: 10 AM
+=======================================================================================================================================
+EMERGENCIAS
+PRIORIDAD                CODIGO                   PACIENTE                 DESCRIPCION              RCP                      NO PULSO                 
+13044                    3044                 Fernando Valdez      Insuficiencia Respiratoria       SI                       12
+13045                    3045                 Patricia Mendez      Intoxicacion Severa              NO                       0
+13046                    3046                 Lucia Paredes        Ahogamiento                      SI                       12
+13047                    3047                 Micaela Barrios      Perdida de Conciencia            SI                       11
+13067                    3067                 Claudia Benites      Shock Anafilactico               NO                       0
+13070                    3070                 Berna Montoya        Nacimiento Erasmo G. Montoya     NO                       0
+=======================================================================================================================================
+URGENCIAS
+PRIORIDAD                CODIGO                   PACIENTE                 DESCRIPCION              ZONA LESION              NO RX                    
+23041                    3041                 Andrea Palacios      Golpe en Rodilla                 Cuello                   NO
+23042                    3042                 Gabriela Reyes       Dolor Lumbar                     Codo                     NO
+23043                    3043                 Nicolas Renteria     Golpe en Rodilla                 Brazo Izquierdo          SI
+23064                    3064                 Gonzalo Poma         Esquince Tobillo                 Espalda Baja             NO
+23065                    3065                 Teresa Molina        Fractura Brazo                   Cabeza                   NO
+23066                    3066                 Pedro Huaman         Torcedura de Muneca              Mano                     NO
+23068                    3068                 Ricardo Leon         Esquince Tobillo                 Espalda Baja             SI
+=======================================================================================================================================
+NO URGENCIAS
+PRIORIDAD                CODIGO                   PACIENTE                 DESCRIPCION              ESPECIALIDAD             PROGRAMADA               
+33069                    3069                 Victor Caceres       Control de Presion               Oftalmologia             NO
+33071                    3071                 Carlos Mendoza       Evaluacion General               Medicina General         SI
+33072                    3072                 Ana Torres           Revision Dermatologica           Dermatologia             NO
+=======================================================================================================================================
