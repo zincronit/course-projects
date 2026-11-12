@@ -56,7 +56,7 @@ void Utils::print_title(std::ofstream& output)
 {
     const std::string title = "REPORTE DE ATENCIONES PRIORITARIAS\n";
     const std::string subtitle = "FECHA: 23-01-1990   HORA: 10 AM\n";
-    Utils::print_text(output, title , (LINE_WIDTH + title.length())/2, true);
-    Utils::print_text(output, subtitle , (LINE_WIDTH + subtitle.length())/2, true);
+    Utils::print_text(output, title , (LINE_WIDTH + title.length() - 65)/2, true);
+    Utils::print_text(output, subtitle , (LINE_WIDTH + subtitle.length() - 65)/2, true);
     Utils::print_line(output);
 }

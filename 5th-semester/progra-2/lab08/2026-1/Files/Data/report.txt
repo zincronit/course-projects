@@ -1,5 +1,5 @@
-                                                                                  REPORTE DE ATENCIONES PRIORITARIAS
-                                                                                    FECHA: 23-01-1990   HORA: 10 AM
+                                                  REPORTE DE ATENCIONES PRIORITARIAS
+                                                   FECHA: 23-01-1990   HORA: 10 AM
 =======================================================================================================================================
 EMERGENCIAS
 PRIORIDAD                CODIGO                   PACIENTE                 DESCRIPCION              RCP                      NO PULSO                 

@@ -20,8 +20,7 @@ DoubleListNode::DoubleListNode(class Attention* attention)
 
 DoubleListNode::~DoubleListNode()
 {
-    delete next;
-    delete previous;
+    std::cout << "hello, I using this " << std::endl;
 }
 
 
