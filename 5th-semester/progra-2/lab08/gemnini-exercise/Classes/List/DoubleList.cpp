@@ -62,7 +62,6 @@ class ListNode* DoubleList::reverse_node(class ListNode* current)
     class ListNode* next_node = current->next;
     if (current->next ==  nullptr)
     {
-
         current->next = current->previous;
         current->previous = next_node;
         return current;

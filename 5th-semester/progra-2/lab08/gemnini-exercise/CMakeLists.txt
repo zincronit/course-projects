@@ -21,4 +21,10 @@ add_executable(gemnini_exercise
         Classes/List/DoubleList.hpp
         Classes/List/ListNode.cpp
         Classes/List/ListNode.hpp
+        Classes/SBT/SearchBinaryTree.cpp
+        Classes/SBT/SearchBinaryTree.hpp
+        Classes/SBT/TreeNode.cpp
+        Classes/SBT/TreeNode.hpp
+        Classes/Sale.cpp
+        Classes/Sale.hpp
 )
