@@ -10,14 +10,13 @@ class RefrigeratedPackage : public Package
 {
 public:
     RefrigeratedPackage();
-    ~RefrigeratedPackage() override = default;
+    ~RefrigeratedPackage() override ;
     void read(std::ifstream&) override;
-    void print_products(std::ofstream&) const override;
     double calculate_cost() const override;
     bool can_dispatch() const override;
     void print_details(std::ofstream&) const override;
 private:
-    double tempeture;
+    double temperature;
 };
 
 

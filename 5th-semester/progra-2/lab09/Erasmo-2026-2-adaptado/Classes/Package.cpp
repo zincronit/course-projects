@@ -36,6 +36,11 @@ void Package::read(std::ifstream& input)
 
 void Package::print_products(std::ofstream& output) const
 {
+    output << "Products: \n";
+    std::string headers[] = {"Code", "Name" , "Weight" , "Value"};
+    for (std::string& header : headers)
+        Utils::print_text(output ,header, WIDTH);
+    output << std::endl;
     for (auto& product: products)
         product.print(output);
 }

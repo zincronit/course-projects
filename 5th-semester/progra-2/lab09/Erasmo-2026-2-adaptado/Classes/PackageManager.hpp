@@ -11,10 +11,10 @@ class PackageManager
 {
 public:
     PackageManager() = default;
-    ~PackageManager() = default;
+    ~PackageManager() ;
     class Package* create_package(char );
     void load_packages(const std::string&, const std::string&);
-    void process_dispatch(const std::string& );
+    void process_dispatch(const std::string&, const std::string&  ) ;
 private:
     std::list<Package*> package_queue;
     std::map<std::string, Package*> package_index;

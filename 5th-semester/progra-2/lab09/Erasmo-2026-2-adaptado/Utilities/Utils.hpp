@@ -13,8 +13,8 @@
 #include <list>
 #include <map>
 
-#define LINE_WIDTH 200
-#define COLUMNS 8
+#define LINE_WIDTH 100
+#define COLUMNS 4
 #define WIDTH LINE_WIDTH/COLUMNS
 
 class Utils
@@ -30,7 +30,7 @@ public:
 
     static void print_text(std::ofstream&, const std::string&, int width , bool should_align_right = false);
 
-    static void print_line(std::ofstream& , char character = '=', int width = LINE_WIDTH - 65);
+    static void print_line(std::ofstream& , char character = '=', int width = LINE_WIDTH );
 
     static void print_title(std::ofstream&);
 };

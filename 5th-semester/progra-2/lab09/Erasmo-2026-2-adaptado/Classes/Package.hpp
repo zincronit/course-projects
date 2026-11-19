@@ -26,7 +26,7 @@ public:
 
     virtual void read(std::ifstream& );
 
-    virtual void print_products(std::ofstream& ) const;
+    void print_products(std::ofstream& ) const;
 
     virtual double calculate_cost() const = 0;
 

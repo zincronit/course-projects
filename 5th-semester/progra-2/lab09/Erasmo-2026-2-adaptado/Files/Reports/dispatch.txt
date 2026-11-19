@@ -1,0 +1,69 @@
+DISPATCHED PACKAGES
+PACKAGE TYPE: STANDARD
+Package: P005
+Distance: 350.00 Km
+Urgent: Yes
+Total weight: 0.00kg
+Total value: S/ 0.00
+Shipping cost: S/35.50
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+----------------------------------------------------------------------------------------------------
+PACKAGE TYPE: REFRIGERATED
+Package: P004
+Distance: 80.00 Km
+Required temperature: -5.00 deg C
+Total weight: 4.50kg
+Total value: S/ 165.00
+Shipping cost: S/59.40
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+PR007                    IceCream                 1.50                     45.00
+PR008                    FrozenMeat               3.00                     120.00
+----------------------------------------------------------------------------------------------------
+PACKAGE TYPE: STANDARD
+Package: P003
+Distance: 200.00 Km
+Urgent: No
+Total weight: 5.00kg
+Total value: S/ 850.00
+Shipping cost: S/30.00
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+PR006                    Monitor                  5.00                     850.00
+----------------------------------------------------------------------------------------------------
+PACKAGE TYPE: REFRIGERATED
+Package: P002
+Distance: 150.00 Km
+Required temperature: 4.00 deg C
+Total weight: 4.50kg
+Total value: S/ 295.00
+Shipping cost: S/51.50
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+PR003                    Salmon                   2.00                     180.00
+PR004                    Cheese                   1.50                     90.00
+PR005                    Milk                     1.00                     25.00
+----------------------------------------------------------------------------------------------------
+PACKAGE TYPE: STANDARD
+Package: P001
+Distance: 90.00 Km
+Urgent: Yes
+Total weight: 2.80kg
+Total value: S/ 3620.00
+Shipping cost: S/28.10
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+PR001                    Laptop                   2.50                     3500.00
+PR002                    Mouse                    0.30                     120.00
+----------------------------------------------------------------------------------------------------

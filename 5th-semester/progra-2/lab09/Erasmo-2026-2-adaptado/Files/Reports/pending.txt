@@ -1,0 +1,13 @@
+PENDING PACKAGES
+PACKAGE TYPE: REFRIGERATED
+Package: P006
+Distance: 120.00 Km
+Required temperature: 12.00 deg C
+Total weight: 0.00kg
+Total value: S/ 0.00
+Shipping cost: S/23.60
+Status: Dispatch 
+
+Products: 
+Code                     Name                     Weight                   Value                    
+----------------------------------------------------------------------------------------------------
