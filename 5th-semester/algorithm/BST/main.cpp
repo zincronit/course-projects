@@ -2,10 +2,12 @@
 // Created by zincronit on 11/21/26.
 //
 #include <iostream>
+#include <stack>
+#include <queue>
+#include <vector>
 
 struct TreeNode
 {
-
     int data;
     TreeNode* left;
     TreeNode* right;
@@ -69,6 +71,7 @@ struct Tree
         print_recursive(root);
         std::cout << std::endl;
     }
+
     void print_recursive(TreeNode* current) const
     {
         if (current == nullptr) return;
@@ -79,7 +82,7 @@ struct Tree
 
     int compare(const int a, const int b) const
     {
-        return a > b ? 1 : a < b ? -1 : 0 ;
+        return a > b ? 1 : a < b ? -1 : 0;
     }
 
     bool search_recursive(const TreeNode* current, int data) const
@@ -88,8 +91,8 @@ struct Tree
         switch (compare(current->data, data))
         {
             case 1: return search_recursive(current->left, data);
-            case -1: return search_recursive(current->right , data);
-            case 0 : return true;;
+            case -1: return search_recursive(current->right, data);
+            case 0: return true;;
         }
     }
 
@@ -107,7 +110,7 @@ struct Tree
     {
         if (current == nullptr) return;
         if (current->data > data)
-            delete_node(current->left,data);
+            delete_node(current->left, data);
         else if (current->data < data)
             delete_node(current->right, data);
         else
@@ -116,20 +119,17 @@ struct Tree
             {
                 delete current;
                 current = nullptr;
-            }
-            else if (current->left == nullptr)
+            } else if (current->left == nullptr)
             {
                 TreeNode* temp = current;
                 current = current->right;
                 delete temp;
-            }
-            else if (current->right == nullptr)
+            } else if (current->right == nullptr)
             {
                 TreeNode* temp = current;
                 current = current->left;
                 delete temp;
-            }
-            else
+            } else
             {
                 TreeNode* successor = find_min(current->right);
                 current->data = successor->data;
@@ -144,16 +144,88 @@ struct Tree
             current = current->right;
         return current;
     }
+
+    TreeNode* find_node(TreeNode* current, const int data) const
+    {
+        if (current == nullptr) return nullptr;
+        switch (compare(current->data, data))
+        {
+            case 1: return find_node(current->left, data);
+            case -1: return find_node(current->right, data);
+            case 0: return current;
+        }
+    }
+
+    void print_zigzag() const
+    {
+        zigzag(root);
+    }
+
+    void zigzag(TreeNode* current) const
+    {
+        std::stack<TreeNode *> stack;
+        std::queue<int> queue;
+    }
+
+    void print_by_level() const
+    {
+        amplitude(root);
+    }
+
+    void amplitude(TreeNode* current) const
+    {
+        std::queue<int> queue;
+        std::cout << current->data << " ";
+        while (current != nullptr)
+        {
+            if (current->left != nullptr)
+                queue.push(current->left->data);
+            if (current->right != nullptr)
+                queue.push(current->right->data);
+
+            if (not queue.empty())
+            {
+                current = find_node(root, queue.front());
+                std::cout << current->data << " ";
+                queue.pop();
+            } else current = nullptr;
+        }
+        std::cout << std::endl;
+    }
+
+    void balance()
+    {
+        if (root == nullptr) return;
+        std::vector<int> array;
+        in_order(root, array);
+        destroy();
+        divide_and_conquer(array, 0 , array.size() - 1);
+    }
+
+    void divide_and_conquer(std::vector<int>& array, int left , int right)
+    {
+        if (left > right) return;
+        int mid = (left + right) / 2;
+        insert(array[mid]);
+        divide_and_conquer(array, left, mid - 1) ;
+        divide_and_conquer(array, mid + 1, right);
+    }
+
+    void in_order(TreeNode* current, std::vector<int>& array) const
+    {
+        if (current == nullptr) return;
+        in_order(current->left, array);
+        array.push_back(current->data);
+        in_order(current->right, array);
+    }
 };
 
 int main()
 {
     Tree tree;
     for (int i = 0 ; i < 10 ; i++) tree.insert(i);
-    tree.print();
-    tree.replace_node(0);
-    tree.print();
-    tree.destroy();
-    tree.print();
+    tree.print_by_level();
+    tree.balance();
+    tree.print_by_level();
     return 0;
 }
