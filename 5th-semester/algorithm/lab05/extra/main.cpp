@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <queue>
 #include <vector>
+#include <climits>
 
 struct Node
 {
@@ -62,6 +63,18 @@ struct Tree
         array.push_back(node);
         store_nodes(node->right, array);
     }
+
+    bool is_bst() const
+    {
+        if (root == nullptr) return true;
+        auto validate = [](this auto&& self, const Node* node, int minor, int major)-> bool
+        {
+            if (node == nullptr) return true;
+            if (node->data <= minor or node->data >= major) return false;
+            return self(node->left, minor, node->data) and self(node->right, node->data, major);
+        };
+        return validate(root, INT_MIN, INT_MAX);
+    }
 };
 
 void sum_trees(Tree& a, Tree& b)
@@ -84,14 +97,24 @@ void sum_trees(Tree& a, Tree& b)
         queue1.pop();
         queue2.pop();
         if (temp2->left != nullptr)
-        {
             sync_nodes(temp1->left, temp2->left);
-        }
         if (temp2->right != nullptr)
-        {
             sync_nodes(temp1->right, temp2->right);
-        }
     }
+}
+
+void sum_trees_recursive(Tree& a,const Tree& b)
+{
+    if (b.root == nullptr) return;
+    auto sync_nodes = [](this auto&& self, Node*& node1, Node* node2)-> void
+    {
+        if (node2 == nullptr) return;
+        if (node1 == nullptr) node1 = new Node(0);
+        node1->data += node2->data;
+        self(node1->left, node2->left);
+        self(node1->right, node2->right);
+    };
+    sync_nodes(a.root, b.root);
 }
 
 int main() {}
