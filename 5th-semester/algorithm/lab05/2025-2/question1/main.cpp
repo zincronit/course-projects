@@ -3,26 +3,24 @@
 //
 
 #include <iostream>
+#include <string>
 #include <stack>
-#include <queue>
-
-struct Data
-{
-    int id;
-    bool is_malware;
-};
+#include <algorithm>
 
 struct TreeNode
 {
-    struct Data data;
+    int data;
+    int height;
     TreeNode* left;
     TreeNode* right;
 
-    TreeNode(struct Data data)
+    // TreeNode(int x) : data(x), left(nullptr), right(nullptr){}
+    TreeNode(int x)
     {
-        this->data = data;
-        this->left = nullptr;
-        this->right = nullptr;
+        data = x;
+        height = 1;
+        left = nullptr;
+        right = nullptr;
     }
 };
 
@@ -30,87 +28,141 @@ struct Tree
 {
     TreeNode* root;
 
-    Tree() { root = nullptr; }
-    bool is_empty() const { return root == nullptr; }
+    Tree() : root(nullptr) {};
 
-    void insert(const struct Data data)
+    void insert(int value)
     {
-        append_node(root, data);
+        insert_recursive(root, value);
     }
 
-    void append_node(TreeNode*& current, const Data data)
+    void insert_recursive(TreeNode*& current, int value)
     {
         if (current == nullptr)
         {
-            current = new TreeNode(data);
+            current = new TreeNode(value);
             return;
         }
-        if (data.id < current->data.id)
-            append_node(current->left, data);
-        else if (data.id > current->data.id)
-            append_node(current->right, data);
-        else
-            std::cout << "Warring: the data has already been added" << std::endl;
+        if (current->data > value)
+            insert_recursive(current->left, value);
+        else if (current->data < value)
+            insert_recursive(current->right, value);
     }
 
-    static int compare(const int a, const int b)
+    void print_hierarchy(const TreeNode* current, std::string prefix, bool is_left_child) const
     {
-        return a > b ? 1 : a < b ? -1 : 0;
+        if (current == nullptr) return;
+        print_hierarchy(current->right, prefix + (is_left_child ? "|   " : "    "), false);
+        std::cout << prefix << (is_left_child ? "└── " : "┌── ");
+        std::cout << current->data << std::endl;
+        print_hierarchy(current->left, prefix + (is_left_child ? "    " : "|   "), true);
     }
 
-    TreeNode* find_node(TreeNode* current, const struct Data data) const
+    void print() const
     {
-        if (current == nullptr) return nullptr;
-        switch (compare(current->data.id, data.id))
+        if (root == nullptr)
         {
-            case 1: return find_node(current->left, data);
-            case -1: return find_node(current->right, data);
-            case 0: return current;
+            std::cout << "Tree is empty\n";
+            return;
         }
-    }
-
-    void print_by_level() const
-    {
-        amplitude(root);
-    }
-
-    void amplitude(TreeNode* current) const
-    {
-        std::queue<Data> queue;
-        current->data.is_malware ? std::cout << "S" : std::cout << "N";
-        std::cout << "-" << current->data.id << " ";
-        while (current != nullptr)
-        {
-            if (current->left != nullptr)
-                queue.push(current->left->data);
-            if (current->right != nullptr)
-                queue.push(current->right->data);
-
-            if (not queue.empty())
-            {
-                current = find_node(root, queue.front());
-                current->data.is_malware ? std::cout << "S" : std::cout << "N";
-                std::cout << "-" << current->data.id << " ";
-                queue.pop();
-            } else current = nullptr;
-        }
+        print_hierarchy(root->right, "", false);
+        std::cout << root->data << std::endl;
+        print_hierarchy(root->left, "", true);
         std::cout << std::endl;
     }
 
-    static void print_data(const Data data)
+    static int get_height(const TreeNode* node)
     {
-        data.is_malware ? std::cout << "S" : std::cout << "N";
-        std::cout << "-" << data.id << " ";
+        if (node == nullptr) return 0;
+        return node->height;
     }
 
+    static int get_balance_factor(const TreeNode* node)
+    {
+        if (node == nullptr) return 0;
+        return get_height(node->left) - get_height(node->right);
+    }
 
+    static void update_height(TreeNode* node)
+    {
+        if (node == nullptr) return;
+        const int left_h = get_height(node->left);
+        const int right_h = get_height(node->right);
+        node->height = std::max(left_h, right_h) + 1;
+    }
+
+    static TreeNode* rotate_right(TreeNode* z)
+    {
+        TreeNode* y = z->left;
+        TreeNode* t3 = y->right;
+        y->right = z;
+        z->left = t3;
+        update_height(z);
+        update_height(y);
+        return y;
+    }
+
+    static TreeNode* rotate_left(TreeNode* z)
+    {
+        TreeNode* y = z->right;
+        TreeNode* t3 = y->left;
+        y->left = z;
+        z->right = t3;
+        update_height(z);
+        update_height(y);
+        return y;
+    }
+
+    TreeNode* insert_node(TreeNode* node, int value)
+    {
+        if (node == nullptr) return new TreeNode(value);
+
+        if (node->data > value)
+            node->left = insert_node(node->left, value);
+        else if (node->data < value)
+            node->right = insert_node(node->right, value);
+        else return node;
+
+        update_height(node);
+        int balance_factor = get_balance_factor(node);
+
+        if (balance_factor > 1 and get_balance_factor(node->left) >= 0)
+            return rotate_right(node);
+        if (balance_factor < -1 and get_balance_factor(node->right) <= 0)
+            return rotate_left(node);
+        if (balance_factor > 1 and get_balance_factor(node->left) < 0)
+        {
+            node->left = rotate_left(node->left);
+            return rotate_right(node);
+        }
+        if (balance_factor < -1 and get_balance_factor(node->right) > 0)
+        {
+            node->right = rotate_right(node->right);
+            return rotate_left(node);
+        }
+        return node;
+    }
+
+    void balance_insert(int value)
+    {
+        root = insert_node(root, value);
+    }
 };
 
 
 int main()
 {
     Tree tree;
-
-
+    // tree.insert(9);
+    // tree.insert(4);
+    // tree.insert(1);
+    // tree.insert(6);
+    // tree.insert(14);
+    // tree.insert(11);
+    // tree.insert(16);
+    // tree.insert(19);
+    // tree.insert(2);
+    // tree.insert(15);
+    for (int i = 0 ; i < 15 ; i++) tree.balance_insert(i);
+    tree.print();
     return 0;
 }

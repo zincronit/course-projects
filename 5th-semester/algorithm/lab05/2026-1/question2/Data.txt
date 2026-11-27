@@ -1,0 +1,4 @@
+arch linux is fast and arch linux is clean
+code in cpp uses pointers and trees
+a binary search tree stores words in order
+linux kernel and cpp code run fast
